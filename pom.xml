@@ -3,6 +3,8 @@
   <groupId>dad</groupId>
   <artifactId>AntarticRPG</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+<<<<<<< HEAD
+=======
   <properties>
   		<maven.compiler.target>15</maven.compiler.target>
 		<maven.compiler.source>15</maven.compiler.source>
@@ -21,4 +23,5 @@
 		<version>15.0.1</version>
   	</dependency>
   </dependencies>
+>>>>>>> da89dc26d9f7baffe49d9c7ae33533ec5506b97b
 </project>
