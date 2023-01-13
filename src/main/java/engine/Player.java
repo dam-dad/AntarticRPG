@@ -14,18 +14,18 @@ public class Player extends Entity<Rectangle> {
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> idle = new HashMap<>() {{
-		put(Direction.NORTH, new Animation("/images/idleUp.png"));
-		put(Direction.SOUTH, new Animation("/images/idleDown.png"));
-		put(Direction.EAST, new Animation("/images/idleLeft.png"));
-		put(Direction.WEST, new Animation("/images/idleRight.png"));
+//		put(Direction.NORTH, new Animation("/images/idleUp.png"));
+//		put(Direction.SOUTH, new Animation("/images/idleDown.png"));
+//		put(Direction.EAST, new Animation("/images/idleLeft.png"));
+//		put(Direction.WEST, new Animation("/images/idleRight.png"));
 	}};
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> walk = new HashMap<>() {{
-		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/images/walkUp1.png", "/images/idleUp.png", "/images/walkUp2.png", "/images/idleUp.png"));
-		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/images/walkDown1.png", "/images/idleDown.png", "/images/walkDown2.png", "/images/idleDown.png"));
-		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/images/walkLeft1.png", "/images/idleLeft.png", "/images/walkLeft2.png", "/images/idleLeft.png"));
-		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/images/walkRight1.png", "/images/idleRight.png", "/images/walkRight2.png", "/images/idleRight.png"));
+//		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/images/walkUp1.png", "/images/idleUp.png", "/images/walkUp2.png", "/images/idleUp.png"));
+//		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/images/walkDown1.png", "/images/idleDown.png", "/images/walkDown2.png", "/images/idleDown.png"));
+//		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/images/walkLeft1.png", "/images/idleLeft.png", "/images/walkLeft2.png", "/images/idleLeft.png"));
+//		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/images/walkRight1.png", "/images/idleRight.png", "/images/walkRight2.png", "/images/idleRight.png"));
 	}};
 
 	public double xSpeed;

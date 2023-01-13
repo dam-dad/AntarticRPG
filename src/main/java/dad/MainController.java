@@ -1,16 +1,13 @@
 package dad;
 
-import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import engine.Game;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class MainController implements Initializable{
@@ -35,8 +32,18 @@ public class MainController implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources){
 
-        Game game = new Game(canvas);
-        game.init();
+//        Game game = new Game(canvas);
+        
+    	canvas.setOnMouseClicked(e -> {
+    		System.out.println("Se ha hecho click en el canvas!");
+    	});
+    	
+        canvas.widthProperty().bind(view.widthProperty());
+        canvas.heightProperty().bind(view.heightProperty());
+    	canvas.setStyle("-fx-background-color: black;");
+    	canvas.setStyle("-fx-z-Index: 1000");
+    	
+//        game.init();
 
     }
 
