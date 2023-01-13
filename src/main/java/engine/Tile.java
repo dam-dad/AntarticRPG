@@ -41,10 +41,10 @@ public class Tile {
 			for (int pos = 0; pos < line.length(); pos++) {
 				Entity<?> entity = null;
 				switch (line.charAt(pos)) {
-				case ' ': entity = new FloorGrass(x, y); break;
-				case 'O': entity = new LongGrass(x, y); break;
-				case 'o': entity = new Flower(x, y); break;
-				case '#': entity = new Tree(x, y); break;
+				case ' ': entity = new FloorIce(x, y); break;
+				case 'O': entity = new FloorIce(x, y); break;
+				case 'o': entity = new FloorIce(x, y); break;
+				case '#': entity = new FloorIce(x, y); break;
 				}
 				entities.add(entity);
 				x += tileWidth;				

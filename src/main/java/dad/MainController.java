@@ -19,7 +19,7 @@ public class MainController implements Initializable{
 
     @FXML private Canvas canvas;
 
-    public MainController(){
+    public MainController() {
         try{
             FXMLLoader l = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
             l.setController(this);
