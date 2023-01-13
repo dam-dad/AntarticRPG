@@ -10,7 +10,7 @@ public class App extends Application{
     @Override public void start(Stage stage) throws Exception {
 
         MainController mc = new MainController();
-        stage.setTitle("ANTARTICRPG");
+        stage.setTitle("ANTARTIC RPG");
         stage.setScene(new Scene(mc.getView()));
         stage.show();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.jpg")));

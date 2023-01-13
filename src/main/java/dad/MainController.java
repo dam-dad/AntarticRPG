@@ -4,18 +4,25 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import engine.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class MainController implements Initializable{
 
     @FXML private BorderPane view;
 
-    @FXML private Canvas canvas;
+    @FXML private StackPane stackPane;
+    
+    @FXML private Canvas menuCanvas;
 
+    @FXML private Canvas optionsCanvas;
+    
     public MainController() {
         try{
             FXMLLoader l = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
@@ -31,20 +38,29 @@ public class MainController implements Initializable{
     }
 
     public void initialize(URL location, ResourceBundle resources){
+    	
+    	menuCanvas.widthProperty().bind(stackPane.prefWidthProperty());
+    	menuCanvas.heightProperty().bind(stackPane.prefHeightProperty());
 
-//        Game game = new Game(canvas);
+    	stackPane.prefWidthProperty().bind(view.prefWidthProperty());
+    	stackPane.prefHeightProperty().bind(view.prefHeightProperty());
+    	
+//       Game game = new Game(menuCanvas);
         
-    	canvas.setOnMouseClicked(e -> {
+//    	ocultamos todos los hijos 
+    	stackPane.getChildren().stream().forEach(i -> i.setVisible(false));
+    
+    	menuCanvas.setVisible(true);
+    	
+    	menuCanvas.setOnMouseClicked(e -> {
     		System.out.println("Se ha hecho click en el canvas!");
     	});
     	
-        canvas.widthProperty().bind(view.widthProperty());
-        canvas.heightProperty().bind(view.heightProperty());
-    	canvas.setStyle("-fx-background-color: black;");
-    	canvas.setStyle("-fx-z-Index: 1000");
-    	
-//        game.init();
+		menuCanvas.getGraphicsContext2D().setStroke(Color.BLACK);
+		menuCanvas.getGraphicsContext2D().strokeLine(0, 0, menuCanvas.getWidth(), menuCanvas.getHeight());
 
+//		game.init();
+		
     }
 
 }
