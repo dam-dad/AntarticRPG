@@ -5,17 +5,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import engine.Game;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 public class MainController implements Initializable{
 
-    @FXML private AnchorPane view;
+    @FXML private BorderPane view;
 
-    @FXML private ImageView mediaView;
+    @FXML private Canvas canvas;
 
     public MainController(){
         try{
@@ -27,13 +29,14 @@ public class MainController implements Initializable{
         }
     }
 
-    public AnchorPane getView(){
+    public BorderPane getView(){
         return view;
     }
 
     public void initialize(URL location, ResourceBundle resources){
 
-        mediaView.setImage(new Image(getClass().getResourceAsStream("/assets/osoPolar.gif")));
+        Game game = new Game(canvas);
+        game.init();
 
     }
 
