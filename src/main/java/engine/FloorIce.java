@@ -10,6 +10,7 @@ public class FloorIce extends StaticEntity<Shape> {
 	
 	public FloorIce(double x, double y) {
 		super(new Image(FloorIce.class.getResourceAsStream("/assets/ground-textures.png")), x, y);
+		//testtestestsadasd
 	}
 	
 }
