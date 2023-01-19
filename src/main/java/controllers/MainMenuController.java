@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -27,6 +29,9 @@ public class MainMenuController implements Initializable{
     @FXML 
     private Button salirButton;
     
+    private MediaPlayer backgroundPlayer = getMediaPlayer("/sounds/background-theme.mp3");
+    
+    
     public MainMenuController() {
         try{
             FXMLLoader l = new FXMLLoader(getClass().getResource("/fxml/MainMenuView.fxml"));
@@ -43,19 +48,24 @@ public class MainMenuController implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources){
     	
-    	
-    	//game.init();
+    	backgroundPlayer.setOnEndOfMedia(() -> backgroundPlayer.play());
+    	backgroundPlayer.setVolume(0.1);
+    	backgroundPlayer.play();
     	
     }
-    
-    private MediaPlayer getSonido(String path) {
+    	
+    private MediaPlayer getMediaPlayer(String path) {
     	return new MediaPlayer(new Media(getClass().getResource(path).toString()));
+    }
+    
+    @FXML
+    private void onMouseEnter(MouseEvent event) {
+    	getMediaPlayer("/sounds/whoosh.mp3").play();
     }
     
     @FXML
     private void onJugarAction(ActionEvent event) {
     	//code
-    	getSonido("/sounds/wet-fart.mp3").play();
     }
 
     @FXML
@@ -65,7 +75,7 @@ public class MainMenuController implements Initializable{
 
     @FXML
     private void onSalirAction(ActionEvent event) {
-    	//code
+    	App.primaryStage.close();
     }
 
 }
