@@ -1,31 +1,35 @@
-package dad;
+package controllers;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import engine.Game;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
-public class MainController implements Initializable{
+public class MainMenuController implements Initializable{
 
-    @FXML private BorderPane view;
+    @FXML 
+    private BorderPane view;
 
-    @FXML private StackPane stackPane;
+    @FXML 
+    private Button jugarButton;
     
-    @FXML private Canvas menuCanvas;
-
-    @FXML private Canvas optionsCanvas;
+    @FXML
+    private Button optionsButton;
     
-    public MainController() {
+    @FXML 
+    private Button salirButton;
+    
+    public MainMenuController() {
         try{
-            FXMLLoader l = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
+            FXMLLoader l = new FXMLLoader(getClass().getResource("/fxml/MainMenuView.fxml"));
             l.setController(this);
             l.load();
         } catch (IOException e){
@@ -39,28 +43,29 @@ public class MainController implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources){
     	
-    	menuCanvas.widthProperty().bind(stackPane.prefWidthProperty());
-    	menuCanvas.heightProperty().bind(stackPane.prefHeightProperty());
-
-    	stackPane.prefWidthProperty().bind(view.prefWidthProperty());
-    	stackPane.prefHeightProperty().bind(view.prefHeightProperty());
     	
-//       Game game = new Game(menuCanvas);
-        
-//    	ocultamos todos los hijos 
-    	stackPane.getChildren().stream().forEach(i -> i.setVisible(false));
+    	//game.init();
+    	
+    }
     
-    	menuCanvas.setVisible(true);
-    	
-    	menuCanvas.setOnMouseClicked(e -> {
-    		System.out.println("Se ha hecho click en el canvas!");
-    	});
-    	
-		menuCanvas.getGraphicsContext2D().setStroke(Color.BLACK);
-		menuCanvas.getGraphicsContext2D().strokeLine(0, 0, menuCanvas.getWidth(), menuCanvas.getHeight());
+    private MediaPlayer getSonido(String path) {
+    	return new MediaPlayer(new Media(getClass().getResource(path).toString()));
+    }
+    
+    @FXML
+    private void onJugarAction(ActionEvent event) {
+    	//code
+    	getSonido("/sounds/wet-fart.mp3").play();
+    }
 
-//		game.init();
-		
+    @FXML
+    private void onOptionsAction(ActionEvent event) {
+    	//code	
+    }
+
+    @FXML
+    private void onSalirAction(ActionEvent event) {
+    	//code
     }
 
 }

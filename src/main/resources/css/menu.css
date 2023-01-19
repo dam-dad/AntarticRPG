@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Dogica Pixel';
+    src: url('../fonts/dogicapixel.ttf');
+}
+.start-button {
+    -fx-font: 24px 'Dogica Pixel'; 
+    -fx-text-fill: #000;
+    -fx-background-image: url("../assets/textureImages/buttonTexture.png"); 
+    -fx-background-size: contain;
+    -fx-background-radius: 20px;
+
+    -fx-border-image-source: url("../assets/textureImages/borderTexture.png");
+    -fx-border-image-slice: 5px;
+    -fx-border-image-width: 6px;
+    -fx-border-image-repeat: stretch;
+    /* -fx-border-radius: 20px; */
+}   
+
+.start-button:hover {
+    -fx-text-fill: #fff;
+    -fx-background-image: url("../assets/textureImages/darkButtonTexture.png")
+}
+
+.menu-border {
+    -fx-background-image: url("../assets/background.png");
+}
