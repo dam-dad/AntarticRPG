@@ -2,6 +2,7 @@
     font-family: 'Dogica Pixel';
     src: url('../fonts/dogicapixel.ttf');
 }
+
 .start-button {
     -fx-font: 24px 'Dogica Pixel'; 
     -fx-text-fill: #000;
@@ -12,15 +13,85 @@
     -fx-border-image-source: url("../assets/textureImages/borderTexture.png");
     -fx-border-image-slice: 5px;
     -fx-border-image-width: 6px;
-    -fx-border-image-repeat: stretch;
+	-fx-border-image-repeat: stretch;
     /* -fx-border-radius: 20px; */
 }   
 
 .start-button:hover {
     -fx-text-fill: #fff;
-    -fx-background-image: url("../assets/textureImages/darkButtonTexture.png")
+    -fx-background-image: url("../assets/textureImages/darkButtonTexture.png");
 }
 
 .menu-border {
     -fx-background-image: url("../assets/background.png");
+}
+
+.options-border {
+    -fx-background-color: linear-gradient(to top, #fcfefb, #17bbfd, #3d8dee, #263e79);    
+    -fx-border-image-source: url("../assets/textureImages/borderTexture.png");
+    -fx-border-image-slice: 5px;
+    -fx-border-image-width: 6px;
+    -fx-border-image-repeat: stretch;
+}
+
+.aceptar-button {
+    -fx-font: 14px 'Dogica Pixel';
+    -fx-background-image: url("../assets/textureImages/buttonTexture.png");
+    -fx-border-image-source: url("../assets/textureImages/borderTexture.png");
+    -fx-border-image-slice: 5px;
+    -fx-border-image-width: 6px;
+    -fx-border-image-repeat: stretch;
+    -fx-text-fill: black;
+}
+
+.aceptar-button:hover {
+    -fx-text-fill: #fff;
+    -fx-background-image: url("../assets/textureImages/darkButtonTexture.png");
+}
+
+.volumen-label {
+    -fx-font: 14px 'Dogica Pixel';
+}
+
+.options-label {
+    -fx-font: 12px 'Dogica Pixel';
+}
+
+.credits-label {
+    -fx-font: 14px 'Dogica Pixel';
+    -fx-text-fill:#fff;
+}
+
+.credits-box {
+    -fx-background-color: rgba(0,0,0,0.9);
+    -fx-margin-bottom: 5px;
+}
+
+.slider .track {
+    -fx-background-color: linear-gradient(to right, lightgrey, white);
+    -fx-pref-height: 10;
+    -fx-background-radius: 10px;
+}
+
+.slider > .thumb {
+	-fx-background-color: #3d8dee;
+    -fx-pref-height: 25;
+    -fx-pref-width: 25;
+}
+
+.slider > .animated-thumb {
+	-fx-background-color: #3d8dee;
+    -fx-pref-height: 25;
+    -fx-pref-width: 25;
+}
+
+.slider > .colored-track {
+    -fx-background-color: #0986e0;
+    -fx-pref-height: 15;
+}
+
+.slider .slider-value {
+    -fx-fill: white;
+    -fx-stroke: white;
+    -fx-font-size: 12pt;
 }
