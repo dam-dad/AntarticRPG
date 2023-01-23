@@ -16,18 +16,18 @@ public class Player extends Entity<Rectangle> {
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> idle = new HashMap<>() {{
-		put(Direction.NORTH, new Animation("/assets/playerImages/upEsquimal.png"));
-		put(Direction.SOUTH, new Animation("/assets/playerImages/downEsquimal.png"));
-		put(Direction.EAST, new Animation("/assets/playerImages/leftEsquimal.png"));
-		put(Direction.WEST, new Animation("/assets/playerImages/rightEsquimal.png"));
+//		put(Direction.NORTH, new Animation("/assets/playerImages/upEsquimal.png"));
+//		put(Direction.SOUTH, new Animation("/assets/playerImages/downEsquimal.png"));
+//		put(Direction.EAST, new Animation("/assets/playerImages/leftEsquimal.png"));
+//		put(Direction.WEST, new Animation("/assets/playerImages/rightEsquimal.png"));
 	}};
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> walk = new HashMap<>() {{
-		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/up1Esquimal.png", "/assets/playerImages/upEsquimal.png", "/assets/playerImages/up2Esquimal.png", "/assets/playerImages/upEsquimal.png"));
-		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png", "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png"));
-		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/assets/playerImages/left1Esquimal.png", "/assets/playerImages/leftEsquimal.png", "/assets/playerImages/left2Esquimal.png", "/assets/playerImages/leftEsquimal.png"));
-		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/assets/playerImages/right1Esquimal.png", "/assets/playerImages/rightEsquimal.png", "/assets/playerImages/right2Esquimal.png", "/assets/playerImages/rightEsquimal.png"));
+//		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/up1Esquimal.png", "/assets/playerImages/upEsquimal.png", "/assets/playerImages/up2Esquimal.png", "/assets/playerImages/upEsquimal.png"));
+//		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png", "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png"));
+//		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/assets/playerImages/left1Esquimal.png", "/assets/playerImages/leftEsquimal.png", "/assets/playerImages/left2Esquimal.png", "/assets/playerImages/leftEsquimal.png"));
+//		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/assets/playerImages/right1Esquimal.png", "/assets/playerImages/rightEsquimal.png", "/assets/playerImages/right2Esquimal.png", "/assets/playerImages/rightEsquimal.png"));
 	}};
 
 	public double xSpeed;
