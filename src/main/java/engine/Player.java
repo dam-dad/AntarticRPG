@@ -4,11 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-<<<<<<< HEAD
-import dad.game.engine.Animation;
-import dad.game.engine.Direction;
-=======
->>>>>>> 2cfd6b2d086c8a9683d607704998dad6c041ae6c
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -19,32 +14,18 @@ public class Player extends Entity<Rectangle> {
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> idle = new HashMap<>() {{
-<<<<<<< HEAD
-//		put(Direction.NORTH, new Animation("/assets/playerImages/upEsquimal.png"));
-//		put(Direction.SOUTH, new Animation("/assets/playerImages/downEsquimal.png"));
-//		put(Direction.EAST, new Animation("/assets/playerImages/leftEsquimal.png"));
-//		put(Direction.WEST, new Animation("/assets/playerImages/rightEsquimal.png"));
-=======
-//		put(Direction.NORTH, new Animation("/images/idleUp.png"));
-//		put(Direction.SOUTH, new Animation("/images/idleDown.png"));
-//		put(Direction.EAST, new Animation("/images/idleLeft.png"));
-//		put(Direction.WEST, new Animation("/images/idleRight.png"));
->>>>>>> 2cfd6b2d086c8a9683d607704998dad6c041ae6c
+		put(Direction.NORTH, new Animation("/assets/playerImages/upEsquimal.png"));
+		put(Direction.SOUTH, new Animation("/assets/playerImages/downEsquimal.png"));
+		put(Direction.EAST, new Animation("/assets/playerImages/leftEsquimal.png"));
+		put(Direction.WEST, new Animation("/assets/playerImages/rightEsquimal.png"));
 	}};
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> walk = new HashMap<>() {{
-<<<<<<< HEAD
-//		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/up1Esquimal.png", "/assets/playerImages/upEsquimal.png", "/assets/playerImages/up2Esquimal.png", "/assets/playerImages/upEsquimal.png"));
-//		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png", "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png"));
-//		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/assets/playerImages/left1Esquimal.png", "/assets/playerImages/leftEsquimal.png", "/assets/playerImages/left2Esquimal.png", "/assets/playerImages/leftEsquimal.png"));
-//		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/assets/playerImages/right1Esquimal.png", "/assets/playerImages/rightEsquimal.png", "/assets/playerImages/right2Esquimal.png", "/assets/playerImages/rightEsquimal.png"));
-=======
-//		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/images/walkUp1.png", "/images/idleUp.png", "/images/walkUp2.png", "/images/idleUp.png"));
-//		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/images/walkDown1.png", "/images/idleDown.png", "/images/walkDown2.png", "/images/idleDown.png"));
-//		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/images/walkLeft1.png", "/images/idleLeft.png", "/images/walkLeft2.png", "/images/idleLeft.png"));
-//		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/images/walkRight1.png", "/images/idleRight.png", "/images/walkRight2.png", "/images/idleRight.png"));
->>>>>>> 2cfd6b2d086c8a9683d607704998dad6c041ae6c
+		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/up1Esquimal.png", "/assets/playerImages/upEsquimal.png", "/assets/playerImages/up2Esquimal.png", "/assets/playerImages/upEsquimal.png"));
+		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png", "/assets/playerImages/down1Esquimal.png", "/assets/playerImages/downEsquimal.png"));
+		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/assets/playerImages/left1Esquimal.png", "/assets/playerImages/leftEsquimal.png", "/assets/playerImages/left2Esquimal.png", "/assets/playerImages/leftEsquimal.png"));
+		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/assets/playerImages/right1Esquimal.png", "/assets/playerImages/rightEsquimal.png", "/assets/playerImages/right2Esquimal.png", "/assets/playerImages/rightEsquimal.png"));
 	}};
 
 	public double xSpeed;
