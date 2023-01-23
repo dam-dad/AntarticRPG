@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.App;
+import engine.SnowParticleEmitter;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -45,9 +47,10 @@ public class MainMenuController implements Initializable{
     private Button salirButton;
     
     private MediaPlayer musicPlayer = getMediaPlayer("/sounds/background-theme.mp3");
-    private MediaPlayer sfxPlayer = new MediaPlayer(new Media(getClass().getResource("/sounds/whoosh.mp3").toString()));
+    private MediaPlayer sfxPlayer = getMediaPlayer("/sounds/whoosh.mp3");
     
     private OptionsMenuController optionsMenuController = new OptionsMenuController();
+    private SnowParticleEmitter snowEmitter = new SnowParticleEmitter();
     
     public MainMenuController() {
         try{
@@ -78,6 +81,8 @@ public class MainMenuController implements Initializable{
     	musicPlayer.play();
     	
     	optionsMenuController.setMainMenuController(this);
+    	snowEmitter.setMainMenuController(this);
+		snowEmitter.crearStage();
     	
     }
     
@@ -89,7 +94,7 @@ public class MainMenuController implements Initializable{
 		musicPlayer.setVolume(musicVolume.get() != 0 ? musicVolume.divide(100).get() : 0);
 	}
 
-	private MediaPlayer getMediaPlayer(String path) {
+	public MediaPlayer getMediaPlayer(String path) {
     	return new MediaPlayer(new Media(getClass().getResource(path).toString()));
     }
     
@@ -118,12 +123,24 @@ public class MainMenuController implements Initializable{
     	App.primaryStage.close();
     }
     
+    @FXML
+    private void onClick(MouseEvent e) {
+    	MediaPlayer click = getMediaPlayer("/sounds/click.mp3");
+    	click.stop();
+    	click.setVolume(sfxVolume.get());
+    	click.play();
+    }
+    
     public MediaPlayer getSfxPlayer() {
 		return sfxPlayer;
 	}
     
     public StackPane getPane() {
 		return pane;
+	}
+    
+    public SnowParticleEmitter getSnowEmitter() {
+		return snowEmitter;
 	}
     
 }

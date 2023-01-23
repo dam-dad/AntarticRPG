@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.MediaPlayer;
 
 public class OptionsMenuController implements Initializable {
 
@@ -111,6 +112,13 @@ public class OptionsMenuController implements Initializable {
     		sfxIcon.setImage(new Image(getClass().getResourceAsStream("/assets/sfx.png")));
     		sfxMuted.set(false);
     	}
+    }
+    
+    @FXML
+    private void onClick(MouseEvent e) {
+    	MediaPlayer click = mainMenuController.getMediaPlayer("/sounds/click.mp3");
+    	click.setVolume(sfxVolume.get());
+    	click.play();
     }
     
 	public BorderPane getView() {
