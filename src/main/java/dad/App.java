@@ -11,9 +11,12 @@ public class App extends Application{
 	public static Stage primaryStage;
 	
     @Override public void start(Stage stage) throws Exception {
+    	App.primaryStage = stage;
 
         MainMenuController mc = new MainMenuController();
-        App.primaryStage = stage;
+        mc.getSnowEmitter().widthProperty().bind(stage.widthProperty());
+        mc.getSnowEmitter().heightProperty().bind(stage.heightProperty());
+        
         stage.setTitle("ANTARTIC RPG");
         stage.setScene(new Scene(mc.getView()));
         stage.show();
