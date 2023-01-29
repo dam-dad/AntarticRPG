@@ -14,20 +14,20 @@ public class Player extends Entity<Rectangle> {
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> idle = new HashMap<>() {{
-//		put(Direction.NORTH, new Animation("/images/idleUp.png"));
-//		put(Direction.SOUTH, new Animation("/images/idleDown.png"));
-//		put(Direction.EAST, new Animation("/images/idleLeft.png"));
-//		put(Direction.WEST, new Animation("/images/idleRight.png"));
+		put(Direction.NORTH, new Animation("/assets/player/upIdle.gif"));
+		put(Direction.SOUTH, new Animation("/assets/player/downIdle.gif")); 
+		put(Direction.EAST, new Animation("/assets/player/leftIdle.gif"));
+		put(Direction.WEST, new Animation("/assets/player/rightIdle.gif"));
 	}};
 	
 	@SuppressWarnings("serial")
 	private final Map<Direction, Animation> walk = new HashMap<>() {{
-//		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/images/walkUp1.png", "/images/idleUp.png", "/images/walkUp2.png", "/images/idleUp.png"));
-//		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/images/walkDown1.png", "/images/idleDown.png", "/images/walkDown2.png", "/images/idleDown.png"));
-//		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/images/walkLeft1.png", "/images/idleLeft.png", "/images/walkLeft2.png", "/images/idleLeft.png"));
-//		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/images/walkRight1.png", "/images/idleRight.png", "/images/walkRight2.png", "/images/idleRight.png"));
+		put(Direction.NORTH, new Animation(ANIMATION_SPEED, "/assets/player/up1Esquimal.png", "/assets/player/upEsquimal.png", "/assets/player/up2Esquimal.png", "/assets/player/upEsquimal.png"));
+		put(Direction.SOUTH, new Animation(ANIMATION_SPEED, "/assets/player/down1Esquimal.png", "/assets/player/downEsquimal.png", "/assets/player.png", "/assets/player/downEsquimal.png"));
+		put(Direction.EAST, new Animation(ANIMATION_SPEED, "/assets/player/left1Esquimal.png", "/assets/player/leftEsquimal.png", "/assets/player/left2Esquimal.png", "/assets/player/leftEsquimal.png"));
+		put(Direction.WEST, new Animation(ANIMATION_SPEED, "/assets/player/right1Esquimal.png", "/assets/player/rightEsquimal.png", "/assets/player/right2Esquimal.png", "/assets/player/rightEsquimal.png"));
 	}};
-
+	
 	public double xSpeed;
 	public double ySpeed;
 	private boolean isWalking = false;

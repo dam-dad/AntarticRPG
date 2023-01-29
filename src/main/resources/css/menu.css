@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Dogica Pixel';
+    -fx-font-family: 'Dogica Pixel';
     src: url('../fonts/dogicapixel.ttf');
 }
 .start-button {
