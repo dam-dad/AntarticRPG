@@ -16,9 +16,9 @@
          <children>
             <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="350.0" spacing="15.0">
                <children>
-                  <Button fx:id="jugarButton" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onJugarAction" onMouseClicked="#onClick" onMouseEntered="#onMouseEntered" prefWidth="600.0" styleClass="start-button" stylesheets="@../../css/menu.css" text="Jugar" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="optionsButton" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onOptionsAction" onMouseClicked="#onClick" onMouseEntered="#onMouseEntered" prefWidth="600.0" styleClass="start-button" stylesheets="@../../css/menu.css" text="Opciones" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="salirButton" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onSalirAction" onMouseClicked="#onClick" onMouseEntered="#onMouseEntered" prefWidth="600.0" styleClass="start-button" stylesheets="@../../css/menu.css" text="Salir" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="jugarButton" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onJugarAction" onMouseEntered="#onMouseEntered" prefWidth="600.0" styleClass="start-button" stylesheets="@../../css/menu.css" text="Jugar" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="optionsButton" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onOptionsAction" onMouseEntered="#onMouseEntered" prefWidth="600.0" styleClass="start-button" stylesheets="@../../css/menu.css" text="Opciones" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="salirButton" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onSalirAction" onMouseEntered="#onMouseEntered" prefWidth="600.0" styleClass="start-button" stylesheets="@../../css/menu.css" text="Salir" VBox.vgrow="ALWAYS" />
                </children>
                <padding>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

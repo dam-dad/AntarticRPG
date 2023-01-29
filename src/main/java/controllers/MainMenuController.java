@@ -123,14 +123,6 @@ public class MainMenuController implements Initializable{
     	App.primaryStage.close();
     }
     
-    @FXML
-    private void onClick(MouseEvent e) {
-    	MediaPlayer click = getMediaPlayer("/sounds/click.mp3");
-    	click.stop();
-    	click.setVolume(sfxVolume.get());
-    	click.play();
-    }
-    
     public MediaPlayer getSfxPlayer() {
 		return sfxPlayer;
 	}

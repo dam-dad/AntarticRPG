@@ -68,7 +68,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button maxHeight="-Infinity" mnemonicParsing="false" onAction="#onAceptarAction" onMouseClicked="#onClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="250.0" styleClass="aceptar-button" stylesheets="@../../css/menu.css" text="Aceptar" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
+            <Button maxHeight="-Infinity" mnemonicParsing="false" onAction="#onAceptarAction" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="250.0" styleClass="aceptar-button" stylesheets="@../../css/menu.css" text="Aceptar" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" top="15.0" />
                </GridPane.margin>

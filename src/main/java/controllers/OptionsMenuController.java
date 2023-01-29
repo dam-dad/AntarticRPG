@@ -29,7 +29,6 @@ public class OptionsMenuController implements Initializable {
 	private BooleanProperty sfxMuted = new SimpleBooleanProperty();
 	private BooleanProperty musicMuted = new SimpleBooleanProperty();
 	
-	
 	private MainMenuController mainMenuController;
 
 	@FXML
@@ -112,13 +111,6 @@ public class OptionsMenuController implements Initializable {
     		sfxIcon.setImage(new Image(getClass().getResourceAsStream("/assets/sfx.png")));
     		sfxMuted.set(false);
     	}
-    }
-    
-    @FXML
-    private void onClick(MouseEvent e) {
-    	MediaPlayer click = mainMenuController.getMediaPlayer("/sounds/click.mp3");
-    	click.setVolume(sfxVolume.get());
-    	click.play();
     }
     
 	public BorderPane getView() {
