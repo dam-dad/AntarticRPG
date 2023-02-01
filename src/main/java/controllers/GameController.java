@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Controlador que gestiona el mapa del juego
@@ -24,6 +25,9 @@ public class GameController implements Initializable {
 	@FXML
 	private Canvas canvas;
 
+	private MediaPlayer musicPlayer;
+	private MediaPlayer sfxPlayer;
+	
 	public GameController() {
 		try { 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/game/GameView.fxml"));
@@ -37,19 +41,11 @@ public class GameController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-//		view.widthProperty().addListener((o, ov, nv) -> {
-//			canvas.setWidth(nv.doubleValue());
-//		});
-//		
-//		view.heightProperty().addListener((o, ov, nv) -> {
-//			canvas.setHeight(nv.doubleValue());
-//		});
-		
 		game = new Game(canvas);
 		game.start();
-
+		
 	}
-
+		
 	public BorderPane getView() {
 		return view;
 	}
@@ -58,4 +54,16 @@ public class GameController implements Initializable {
 		return game;
 	}
 
+	public void setSfxPlayer(MediaPlayer sfxPlayer) {
+		this.sfxPlayer = sfxPlayer;
+	}
+	
+	public void setMusicPlayer(MediaPlayer musicPlayer) {
+		this.musicPlayer = musicPlayer;
+	}
+	
+	public void playMusic() {
+		musicPlayer.play();
+	}
+	
 }

@@ -31,7 +31,6 @@ public class SnowParticleEmitter {
 	
 	public SnowParticleEmitter() {
 		r = new Random();
-		
 	}
 	
 	public void crearStage() {

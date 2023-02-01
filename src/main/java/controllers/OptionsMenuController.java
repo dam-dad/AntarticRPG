@@ -1,11 +1,15 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXSlider;
 
+import config.UserConfig;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,18 +23,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.media.MediaPlayer;
 
 public class OptionsMenuController implements Initializable {
 
 	private DoubleProperty musicVolume = new SimpleDoubleProperty();
 	private DoubleProperty sfxVolume = new SimpleDoubleProperty();
-	
+
 	private BooleanProperty sfxMuted = new SimpleBooleanProperty();
 	private BooleanProperty musicMuted = new SimpleBooleanProperty();
 	
 	private MainMenuController mainMenuController;
-
+	private UserConfig userConfig = new UserConfig(new File("user.cfg"));
+		
 	@FXML
 	private ImageView sfxIcon;
 	
@@ -65,17 +69,56 @@ public class OptionsMenuController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		// bindings
-		sfxVolume.bind(sfxSlider.valueProperty());
-		musicVolume.bind(musicSlider.valueProperty());
+		//listeners
+		sfxMuted.addListener((o, ov, nv) -> {
+			if(nv != ov)
+				userConfig.getConfig().setProperty("sfxMuted", nv + "");
+			if(String.valueOf(nv.booleanValue()).equalsIgnoreCase("true"))
+				sfxIcon.setImage(new Image(getClass().getResourceAsStream("/assets/mute-sfx.png")));
+			else
+				sfxIcon.setImage(new Image(getClass().getResourceAsStream("/assets/sfx.png")));
+		});
 		
-		sfxLabel.textProperty().bind(sfxVolume.asString("%1.0f").concat("%"));
-		musicLabel.textProperty().bind(musicVolume.asString("%1.0f").concat("%"));
+		musicMuted.addListener((o, ov, nv) -> {
+			if(nv != ov) 
+				userConfig.getConfig().setProperty("musicMuted", nv + "");
+			if(String.valueOf(nv.booleanValue()).equalsIgnoreCase("true"))
+				musicIcon.setImage(new Image(getClass().getResourceAsStream("/assets/mute-music.png")));
+			else
+				musicIcon.setImage(new Image(getClass().getResourceAsStream("/assets/music.png")));
+		});
+		
+		sfxVolume.addListener((o, ov, nv) -> {
+			if(nv != ov) 
+				userConfig.getConfig().setProperty("sfxVolume", String.format("%1.1f", nv.doubleValue() * 100).replace(',', '.'));
+		});
+		
+		musicVolume.addListener((o, ov, nv) -> {
+			if(nv != ov) 
+				userConfig.getConfig().setProperty("musicVolume", String.format("%1.1f", nv.doubleValue() * 100).replace(',', '.'));
+		});
 
+		// bindings
+		sfxLabel.textProperty().bind(sfxVolume.multiply(100).asString("%.0f").concat("%"));
+		musicLabel.textProperty().bind(musicVolume.multiply(100).asString("%.0f").concat("%"));
+
+		sfxMuted.bind(sfxVolume.isEqualTo(0));
+		musicMuted.bind(musicVolume.isEqualTo(0));
+		
+		sfxVolume.set(Double.parseDouble(userConfig.getConfig().get("sfxVolume").toString()) / 100);
+		musicVolume.set(Double.parseDouble(userConfig.getConfig().get("musicVolume").toString()) / 100);
+
+		sfxSlider.valueProperty().set(Double.parseDouble(userConfig.getConfig().get("sfxVolume").toString()));
+		musicSlider.valueProperty().set(Double.parseDouble(userConfig.getConfig().get("musicVolume").toString()));
+		
+		sfxVolume.bind(sfxSlider.valueProperty().divide(100));
+		musicVolume.bind(musicSlider.valueProperty().divide(100));
+		
 	}
 
 	@FXML
 	private void onAceptarAction(ActionEvent e) {
+		userConfig.saveConfig();
 		mainMenuController.getPane().getChildren().remove(view);
 	}
 
@@ -89,28 +132,18 @@ public class OptionsMenuController implements Initializable {
     private void onMusicClick(MouseEvent event) {
     	if(!isMusicMuted()) {
     		musicVolume.unbind();
-    		musicIcon.setImage(new Image(getClass().getResourceAsStream("/assets/mute-music.png")));
     		setMusicVolume(0);
-    		setMusicMuted(true);
-    	} else {
-    		musicVolume.bind(musicSlider.valueProperty());
-    		musicIcon.setImage(new Image(getClass().getResourceAsStream("/assets/music.png")));
-    		musicMuted.set(false);
-    	}
+    	} else 
+    		musicVolume.bind(musicSlider.valueProperty().divide(100));
     }
 
     @FXML
     private void onSFXClick(MouseEvent event) {
     	if(!isSfxMuted()) {
     		sfxVolume.unbind();
-    		sfxIcon.setImage(new Image(getClass().getResourceAsStream("/assets/mute-sfx.png")));
     		setSfxVolume(0);
-    		setSfxMuted(true);
-    	} else {
-    		sfxVolume.bind(sfxSlider.valueProperty());
-    		sfxIcon.setImage(new Image(getClass().getResourceAsStream("/assets/sfx.png")));
-    		sfxMuted.set(false);
-    	}
+    	} else 
+    		sfxVolume.bind(sfxSlider.valueProperty().divide(100));
     }
     
 	public BorderPane getView() {
@@ -173,4 +206,12 @@ public class OptionsMenuController implements Initializable {
 		this.musicMutedProperty().set(musicMuted);
 	}
 
+	public void setUserConfig(UserConfig userConfig) {
+		this.userConfig = userConfig;
+	}
+	
+	public UserConfig getUserConfig() {
+		return userConfig;
+	}
+	
 }

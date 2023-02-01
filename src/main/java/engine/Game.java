@@ -41,7 +41,7 @@ public class Game extends AnimationTimer {
 	}
 	
 	public void init() {
-		this.player = new Player(128, 128, 2);
+		this.player = new Player(128, 128, 2.4);
 		this.entities.addAll(Tile.loadTile(Tile.map));		
 	}
 

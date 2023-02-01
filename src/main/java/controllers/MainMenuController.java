@@ -1,11 +1,15 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import config.UserConfig;
 import dad.App;
 import engine.SnowParticleEmitter;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
@@ -15,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import threads.StartGameTask;
@@ -54,6 +60,7 @@ public class MainMenuController implements Initializable{
     
     private OptionsMenuController optionsMenuController = new OptionsMenuController();
     private SnowParticleEmitter snowEmitter = new SnowParticleEmitter();
+    private UserConfig userConfig = optionsMenuController.getUserConfig();
     
     public MainMenuController() {
         try{
@@ -79,8 +86,11 @@ public class MainMenuController implements Initializable{
     	musicVolume.bind(optionsMenuController.musicVolumeProperty());
     	
     	//actions
+    	
+    	musicPlayer.setVolume(musicVolume.get());
+    	sfxPlayer.setVolume(sfxVolume.get());
+    	
     	musicPlayer.setOnEndOfMedia(() -> musicPlayer.play());
-    	musicPlayer.setVolume(musicVolume.multiply(100).divide(1).get());
     	musicPlayer.play();
     	
     	optionsMenuController.setMainMenuController(this);
@@ -90,11 +100,11 @@ public class MainMenuController implements Initializable{
     }
     
 	private void refreshSFXVolume(ObservableValue<? extends Number> o, Number ov, Number nv) {
-		sfxPlayer.setVolume(sfxVolume.get() != 0 ? sfxVolume.divide(100).get() : 0);
+		sfxPlayer.setVolume(sfxVolume.get());
 	}
 
 	private void refreshMasterVolume(ObservableValue<? extends Number> o, Number ov, Number nv) {
-		musicPlayer.setVolume(musicVolume.get() != 0 ? musicVolume.divide(100).get() : 0);
+		musicPlayer.setVolume(musicVolume.get());
 	}
 
 	public MediaPlayer getMediaPlayer(String path) {
@@ -110,24 +120,46 @@ public class MainMenuController implements Initializable{
     @FXML
     private void onJugarAction(ActionEvent event) {
     	StackPane sp = new StackPane();
+    	Task<Scene> cargarEscena = new StartGameTask();
     	
+    	VBox vbox = new VBox();
     	Label l = new Label("Cargando...");
+    	Label l2 = new Label();
     	
     	l.setStyle("""
     			-fx-text-fill: white;
     			-fx-font-size: 24;
     			""");
     	
+    	l2.setStyle("""
+    			-fx-text-fill: white;
+    			-fx-font-size: 24;
+    			""");
+
+    	DoubleBinding abs = Bindings.createDoubleBinding(() -> Math.abs(cargarEscena.progressProperty().get() * 100), cargarEscena.progressProperty());
+    	l2.textProperty().bind(abs.asString("%1.0f").concat("%"));
+    	
     	sp.setStyle("-fx-background-color: black;");
-    	sp.getChildren().add(l);
-    		
+    	vbox.getChildren().addAll(l,l2);
+    	vbox.setSpacing(5);
+    	
+    	vbox.setAlignment(Pos.CENTER);
+    	sp.getChildren().add(vbox);
     	
     	App.primaryStage.setScene(new Scene(sp, getView().getWidth(), getView().getHeight()));
     	
-    	Task<Scene> cargarEscena = new StartGameTask();
-    	cargarEscena.setOnSucceeded(e -> App.primaryStage.setScene(new Scene(new GameController().getView())));    	
+    	GameController gc = new GameController();
+    	gc.setMusicPlayer(musicPlayer);
+    	gc.setSfxPlayer(sfxPlayer);
+    	
+    	
+    	cargarEscena.setOnSucceeded(e -> {
+    		App.primaryStage.setScene(new Scene(gc.getView()));
+    		gc.playMusic();
+    	});    	
     	
     	new Thread(cargarEscena).start();
+
     }
 
     @FXML
