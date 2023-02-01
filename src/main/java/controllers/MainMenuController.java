@@ -9,19 +9,22 @@ import engine.SnowParticleEmitter;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import threads.StartGameTask;
 
 public class MainMenuController implements Initializable{
 
@@ -106,7 +109,25 @@ public class MainMenuController implements Initializable{
     
     @FXML
     private void onJugarAction(ActionEvent event) {
-    	//code
+    	StackPane sp = new StackPane();
+    	
+    	Label l = new Label("Cargando...");
+    	
+    	l.setStyle("""
+    			-fx-text-fill: white;
+    			-fx-font-size: 24;
+    			""");
+    	
+    	sp.setStyle("-fx-background-color: black;");
+    	sp.getChildren().add(l);
+    		
+    	
+    	App.primaryStage.setScene(new Scene(sp, getView().getWidth(), getView().getHeight()));
+    	
+    	Task<Scene> cargarEscena = new StartGameTask();
+    	cargarEscena.setOnSucceeded(e -> App.primaryStage.setScene(new Scene(new GameController().getView())));    	
+    	
+    	new Thread(cargarEscena).start();
     }
 
     @FXML
@@ -121,6 +142,7 @@ public class MainMenuController implements Initializable{
     @FXML
     private void onSalirAction(ActionEvent event) {
     	App.primaryStage.close();
+    	System.exit(0);
     }
     
     public MediaPlayer getSfxPlayer() {

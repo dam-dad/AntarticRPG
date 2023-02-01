@@ -35,13 +35,13 @@ public class SnowParticleEmitter {
 	}
 	
 	public void crearStage() {
-		for(int i = 0; i < 1500; i++) {
+		for(int i = 0; i < 1000; i++) {
 			inactiveCircles.add(crearCirculo());
 		}
 		
 		new Thread(() -> {
 			while(true) {
-				if(circles.size() < 1500) {
+				if(circles.size() < 1000) {
 					Circle c = inactiveCircles.remove(0);
 					Platform.runLater(() -> {
 						mainMenuController.getView().getChildren().add(c);

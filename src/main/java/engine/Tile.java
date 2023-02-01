@@ -10,20 +10,24 @@ import java.util.List;
 public class Tile {
 	
 	public static String map = """
-		######  #######
-		# O          O#
+		######   ######
+		#             #
 		#       O     #
-		#       #     #
+		#  O        O #
 		#ooo          #
-		#ooo  O  O    #
-		#       ## oo##
-		#   O    #  oo#
+		#     O  O    #
+		#   o      oo #
+		#   O       oo# 
+		#      O      #
+		#  o  o       #
+		#    O        #
+		#  o          #
 		#          ooo#
-		###############
-		""";
+		#   O         #
+		###############""";
 
-	private static double tileLength = 48;
-	private static double tileWidth = 48;
+	private static double tileLength = 53;
+	private static double tileWidth = 53;
 
 	
 	/**
@@ -41,10 +45,10 @@ public class Tile {
 			for (int pos = 0; pos < line.length(); pos++) {
 				Entity<?> entity = null;
 				switch (line.charAt(pos)) {
-				case ' ': entity = new FloorIce(x, y); break;
-				case 'O': entity = new FloorIce(x, y); break;
-				case 'o': entity = new FloorIce(x, y); break;
-				case '#': entity = new FloorIce(x, y); break;
+				case ' ': entity = new Suelo(x, y); break;
+				case 'O': entity = new Piedra(x, y); break;
+				case 'o': entity = new Ice(x, y); break;
+				case '#': entity = new Tree(x, y); break;
 				}
 				entities.add(entity);
 				x += tileWidth;				

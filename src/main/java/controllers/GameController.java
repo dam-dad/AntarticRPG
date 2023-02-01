@@ -36,6 +36,14 @@ public class GameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+//		view.widthProperty().addListener((o, ov, nv) -> {
+//			canvas.setWidth(nv.doubleValue());
+//		});
+//		
+//		view.heightProperty().addListener((o, ov, nv) -> {
+//			canvas.setHeight(nv.doubleValue());
+//		});
 		
 		game = new Game(canvas);
 		game.start();

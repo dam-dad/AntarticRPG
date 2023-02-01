@@ -22,6 +22,10 @@ public class App extends Application{
         stage.show();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
         
+        primaryStage.setOnCloseRequest(e -> {
+        	System.exit(0);
+        });
+        
     }
     public static void main(String[] args){
         launch(args);
