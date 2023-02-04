@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Screen;
 import threads.GameLoop;
 
 /**
@@ -41,11 +42,6 @@ public class GameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		canvas.setWidth(GameVariables.SCREEN_WIDTH);
-		canvas.setHeight(GameVariables.SCREEN_HEIGHT);
-
-		view.setPrefSize(canvas.getWidth(), canvas.getHeight());
 		startGame();
 	}
 	

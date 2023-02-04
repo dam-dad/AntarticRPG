@@ -17,6 +17,9 @@ public class Player extends Entity {
 	private boolean idle;
 	
 	public static Player instance;
+
+	public final int screenX;
+	public final int screenY;
 	
 	public Player(Canvas c, GameLoop loop) {
 		super();
@@ -26,6 +29,11 @@ public class Player extends Entity {
 		this.context = c.getGraphicsContext2D();
 		this.loop = loop;
 		
+		screenX = GameVariables.SCREEN_WIDTH / 2;
+		screenY = GameVariables.SCREEN_HEIGHT / 2;
+		
+//		screenX = 100;
+//		screenY = 100;
 		setValoresPorDefecto();
 		loadImages();
 		
@@ -33,25 +41,26 @@ public class Player extends Entity {
 	}
 	
 	public void setValoresPorDefecto() {
-		x = 100;
-		y = 100;
+		worldX = GameVariables.TILE_SIZE * 23;
+		worldY = GameVariables.TILE_SIZE * 21;
+
 		speed = GameVariables.SPEED;
 		direction = Direction.DOWN;
 	}
 	
 	public void update() {
-		if(loop.upPressed && y > 0) {
+		if(loop.upPressed && worldY > 0) {
 			direction = Direction.UP;
-			y -= speed;
-		} else if(loop.downPressed && y < GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE) {
+			worldY -= speed;
+		} else if(loop.downPressed && worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE)) {
 			direction = Direction.DOWN;
-			y += speed;
-		} else if(loop.leftPressed && x > 0) {
+			worldY += speed;
+		} else if(loop.leftPressed && worldX > 0) {
 			direction = Direction.LEFT;
-			x -= speed;
-		} else if(loop.rightPressed && x < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE) {
+			worldX -= speed;
+		} else if(loop.rightPressed && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE) {
 			direction = Direction.RIGHT;
-			x += speed;
+			worldX += speed;
 		}
 		
 	    contImages++;
@@ -66,6 +75,9 @@ public class Player extends Entity {
     		  spriteNum = 0;
     	  contImages = 0;
 	    }
+	    
+	    System.out.println("World X:" + worldX);
+	    System.out.println("World Y:" + worldY);
 		
 	}
 	
@@ -132,7 +144,7 @@ public class Player extends Entity {
 				img = rightIdle;
 		}
 		
-		context.drawImage(img, x, y, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
+		context.drawImage(img, screenX, screenY, GameVariables.TILE_SIZE * 1.5, GameVariables.TILE_SIZE * 1.5);
 
 	}
 	
@@ -155,20 +167,36 @@ public class Player extends Entity {
 		rightIdle = new Image(getClass().getResourceAsStream("/assets/player/rightIdle.gif"));
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public void setX(int x) {
-		this.x = x;
+//	public int getX() {
+//		return x;
+//	}
+//	
+//	public void setX(int x) {
+//		this.x = x;
+//	}
+//
+//	public int getY() {
+//		return y;
+//	}
+//
+//	public void setY(int y) {
+//		this.y = y;
+//	}
+
+	public int getWorldX() {
+		return worldX;	
 	}
 
-	public int getY() {
-		return y;
+	public int getWorldY() {
+		return worldY;
 	}
-	
-	public void setY(int y) {
-		this.y = y;
+
+	public int getScreenX() {
+		return screenX;
+	}
+
+	public int getScreenY() {
+		return screenY;
 	}
 
 	public boolean isIdle() {

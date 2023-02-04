@@ -20,7 +20,8 @@ public class GameLoop extends Thread {
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean inGame = true;	
 
-	private Player player;
+	public Player player;
+
 	private KeyHandler keyHandler;
 	private TileHandler tileHandler;
 	
@@ -91,6 +92,13 @@ public class GameLoop extends Thread {
 			}
 		}
 		
+	}
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 	public boolean isUpPressed() {
