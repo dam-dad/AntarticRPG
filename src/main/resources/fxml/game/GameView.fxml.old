@@ -5,6 +5,6 @@
 
 <BorderPane fx:id="view" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Canvas fx:id="canvas" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="canvas" height="795.0" width="790.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

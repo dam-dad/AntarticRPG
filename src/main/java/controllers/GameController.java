@@ -4,29 +4,30 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import engine.Game;
+import engine.GameVariables;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
+import threads.GameLoop;
 
 /**
- * Controlador que gestiona el mapa del juego
+ * Controlador de la vista del juego
  */
 public class GameController implements Initializable {
-
-	private Game game;
 
 	@FXML
 	private BorderPane view;
 
 	@FXML
 	private Canvas canvas;
-
+	
 	private MediaPlayer musicPlayer;
 	private MediaPlayer sfxPlayer;
+	
+	private GameLoop gameLoop;
 	
 	public GameController() {
 		try { 
@@ -40,18 +41,21 @@ public class GameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		canvas.setWidth(GameVariables.SCREEN_WIDTH);
+		canvas.setHeight(GameVariables.SCREEN_HEIGHT);
 
-		game = new Game(canvas);
-		game.start();
-		
+		view.setPrefSize(canvas.getWidth(), canvas.getHeight());
+		startGame();
 	}
-		
+	
+	public void startGame() {
+		gameLoop = new GameLoop(canvas);
+		gameLoop.start();
+	}
+	
 	public BorderPane getView() {
 		return view;
-	}
-
-	public Game getGame() {
-		return game;
 	}
 
 	public void setSfxPlayer(MediaPlayer sfxPlayer) {
@@ -65,5 +69,6 @@ public class GameController implements Initializable {
 	public void playMusic() {
 		musicPlayer.play();
 	}
+
 	
 }
