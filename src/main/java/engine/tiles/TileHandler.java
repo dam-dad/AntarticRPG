@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 
 import engine.GameVariables;
 import engine.entity.Player;
-import engineOld.Game;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import threads.GameLoop;
@@ -83,7 +82,10 @@ public class TileHandler {
 
 		if(!p.isIdle()) {
 			
-			context.drawImage(new Image(getClass().getResourceAsStream("/fxml")), 0, 0);
+//			context.setFill(Color.AQUA);
+//			context.fillRect(0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
+			
+			context.drawImage(new Image(getClass().getResourceAsStream("/assets/textureImages/water.png")), 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
 			int worldCol = 0;
 			int worldRow = 0;
 			
@@ -96,10 +98,6 @@ public class TileHandler {
 				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
 				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
 
-//				if(worldX + GameVariables.TILE_SIZE > loop.player.getWorldX() - loop.player.getScreenX() &&
-//				   worldX - GameVariables.TILE_SIZE < loop.player.getWorldX() + loop.player.getScreenX() &&
-//				   worldY + GameVariables.TILE_SIZE > loop.player.getWorldY() - loop.player.getScreenY() &&
-//				   worldY - GameVariables.TILE_SIZE < loop.player.getWorldY() + loop.player.getScreenY())
 				context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
 
 				

@@ -52,13 +52,13 @@ public class Player extends Entity {
 		if(loop.upPressed && worldY > 0) {
 			direction = Direction.UP;
 			worldY -= speed;
-		} else if(loop.downPressed && worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE)) {
+		} else if(loop.downPressed && worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * 1.5)) {
 			direction = Direction.DOWN;
 			worldY += speed;
 		} else if(loop.leftPressed && worldX > 0) {
 			direction = Direction.LEFT;
 			worldX -= speed;
-		} else if(loop.rightPressed && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE) {
+		} else if(loop.rightPressed && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * 1.5) {
 			direction = Direction.RIGHT;
 			worldX += speed;
 		}
