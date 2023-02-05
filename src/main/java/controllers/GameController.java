@@ -5,13 +5,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import engine.GameVariables;
+import engine.SnowParticleEmitter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Screen;
 import threads.GameLoop;
 
 /**
@@ -29,6 +29,7 @@ public class GameController implements Initializable {
 	private MediaPlayer sfxPlayer;
 	
 	private GameLoop gameLoop;
+	private SnowParticleEmitter emitter = new SnowParticleEmitter();;
 	
 	public GameController() {
 		try { 
@@ -38,11 +39,24 @@ public class GameController implements Initializable {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		canvas.setWidth(GameVariables.SCREEN_WIDTH);
+		canvas.setHeight(GameVariables.SCREEN_HEIGHT);
+		
+		emitter.widthProperty().bind(canvas.widthProperty());
+		emitter.heightProperty().bind(canvas.heightProperty());
+		
+		emitter.setGameController(this);
+		emitter.setParticles(1000);
+		emitter.initGame();
+		
 		startGame();
+		
 	}
 	
 	public void startGame() {

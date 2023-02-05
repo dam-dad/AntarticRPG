@@ -11,8 +11,8 @@ public class GameVariables {
 	public static final int MAX_SCREEN_COL = 25;  //el juego consta de 25 columnas y filas
 	public static final int MAX_SCREEN_ROW = 25;
 	
-	public static final int SCREEN_WIDTH = 800; //800px
-	public static final int SCREEN_HEIGHT = 800; //800px
+	public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; //800px
+	public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; //800px
 
 	public static final int FPS = 60; //FPS deseados
 	
@@ -20,14 +20,14 @@ public class GameVariables {
 	public static final int INTERVALO = 1000000000/FPS;
 	
 	//Opciones del jugador
-	public static int playerX = 100;
-	public static int playerY = 100;
+	public static int playerX = SCREEN_WIDTH / 2;
+	public static int playerY = SCREEN_HEIGHT / 2;
 	public static final int SPEED = 4;
 
 	//opciones del mapa
 	public static final int MAX_WORLD_COL = 25;
 	public static final int MAX_WORLD_ROW = 25;
-	public static final int WORLD_WITH = TILE_SIZE * MAX_WORLD_COL;
+	public static final int WORLD_WIDTH = TILE_SIZE * MAX_WORLD_COL;
 	public static final int WORLD_HEIGHT = TILE_SIZE * MAX_WORLD_ROW;
 	
 }

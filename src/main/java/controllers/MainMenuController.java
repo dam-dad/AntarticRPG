@@ -71,10 +71,6 @@ public class MainMenuController implements Initializable{
         }
     }
 
-    public BorderPane getView(){
-        return view;
-    }
-
     public void initialize(URL location, ResourceBundle resources){
     	
     	//listeners
@@ -94,7 +90,7 @@ public class MainMenuController implements Initializable{
     	
     	optionsMenuController.setMainMenuController(this);
     	snowEmitter.setMainMenuController(this);
-		snowEmitter.crearStage();
+		snowEmitter.initMain();
     	
     }
     
@@ -118,6 +114,7 @@ public class MainMenuController implements Initializable{
     
     @FXML
     private void onJugarAction(ActionEvent event) {
+    	snowEmitter.stopMainThread();
     	StackPane sp = new StackPane();
     	Task<Scene> cargarEscena = new StartGameTask();
     	
@@ -151,7 +148,6 @@ public class MainMenuController implements Initializable{
     	gc.setMusicPlayer(musicPlayer);
     	gc.setSfxPlayer(sfxPlayer);
     	
-    	
     	cargarEscena.setOnSucceeded(e -> {
     		App.primaryStage.setScene(new Scene(gc.getView()));
     		gc.playMusic();
@@ -174,6 +170,10 @@ public class MainMenuController implements Initializable{
     private void onSalirAction(ActionEvent event) {
     	App.primaryStage.close();
     	System.exit(0);
+    }
+    
+    public BorderPane getView(){
+        return view;
     }
     
     public MediaPlayer getSfxPlayer() {

@@ -3,6 +3,7 @@ package engine;
 import java.util.ArrayList;
 import java.util.Random;
 
+import controllers.GameController;
 import controllers.MainMenuController;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -25,22 +26,28 @@ public class SnowParticleEmitter {
 	private ArrayList<Circle> circles = new ArrayList<>();
 	private ArrayList<Circle> inactiveCircles = new ArrayList<>();
 	
-	
 	private MainMenuController mainMenuController;
+	private GameController gameController;
 	private Random r;
+	
+	private Thread mainThread;
+	private Thread gameThread;
+	
+	private int particles;
 	
 	public SnowParticleEmitter() {
 		r = new Random();
+		particles = 1000;
 	}
 	
-	public void crearStage() {
-		for(int i = 0; i < 1000; i++) {
+	public void initMain() {
+		for(int i = 0; i < particles; i++) {
 			inactiveCircles.add(crearCirculo());
 		}
 		
-		new Thread(() -> {
+		mainThread = new Thread(() -> {
 			while(true) {
-				if(circles.size() < 1000) {
+				if(circles.size() < particles) {
 					Circle c = inactiveCircles.remove(0);
 					Platform.runLater(() -> {
 						mainMenuController.getView().getChildren().add(c);
@@ -54,10 +61,46 @@ public class SnowParticleEmitter {
 					ex.printStackTrace();
 				}
 			}
-		}).start();
+		});
+		
+		mainThread.start();
 		
 	}
+	
+	public void initGame() {
+		for(int i = 0; i < particles; i++) {
+			inactiveCircles.add(crearCirculo());
+		}
+		
+		gameThread = new Thread(() -> {
+			while(true) {
+				if(circles.size() < particles) {
+					Circle c = inactiveCircles.remove(0);
+					Platform.runLater(() -> {
+						gameController.getView().getChildren().add(c);
+						animar(c);
+					});
+					circles.add(c);
+				}
+				try {
+					Thread.sleep(5);
+				} catch(InterruptedException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		gameThread.start();
+	}
 
+	public void stopMainThread() {
+		mainThread.interrupt();
+	}
+	
+	public void stopGameThread() {
+		gameThread.interrupt();
+	}
+	
 	private Circle crearCirculo() {
 		Circle c = new Circle(1,1,1);
 		c.setRadius(r.nextDouble() * 3);
@@ -83,6 +126,14 @@ public class SnowParticleEmitter {
 		anim.play();
 	}
 
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
+	}
+	
+	public void setParticles(int particles) {
+		this.particles = particles;
+	}
+	
 	public void setMainMenuController(MainMenuController mainMenuController) {
 		this.mainMenuController = mainMenuController;
 	}

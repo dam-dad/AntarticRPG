@@ -1,6 +1,7 @@
 package threads;
 
 import engine.GameVariables;
+import engine.SnowParticleEmitter;
 import engine.entity.Player;
 import engine.tiles.TileHandler;
 import handlers.KeyHandler;
@@ -37,7 +38,7 @@ public class GameLoop extends Thread {
 		player = new Player(canvas, this);
 		keyHandler = new KeyHandler(canvas, this);
 		tileHandler = new TileHandler(this, player);
-	
+		
 	}
 	
 	public void update() { 
