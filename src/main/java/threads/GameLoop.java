@@ -1,13 +1,15 @@
 package threads;
 
+import engine.CollisionChecker;
 import engine.GameVariables;
-import engine.SnowParticleEmitter;
 import engine.entity.Player;
 import engine.tiles.TileHandler;
 import handlers.KeyHandler;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 /*
  * Gameloop
@@ -17,6 +19,7 @@ public class GameLoop extends Thread {
 	
 	private Canvas canvas;
 	private GraphicsContext context;
+	private int fps = 0;
 	
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean inGame = true;	
@@ -25,6 +28,7 @@ public class GameLoop extends Thread {
 
 	private KeyHandler keyHandler;
 	private TileHandler tileHandler;
+	private CollisionChecker checker;
 	
 	public GameLoop(Canvas canvas) {
 		if(canvas == null)
@@ -38,7 +42,7 @@ public class GameLoop extends Thread {
 		player = new Player(canvas, this);
 		keyHandler = new KeyHandler(canvas, this);
 		tileHandler = new TileHandler(this, player);
-		
+		checker = new CollisionChecker(this);
 	}
 	
 	public void update() { 
@@ -52,6 +56,8 @@ public class GameLoop extends Thread {
 		Platform.runLater(() -> {
 			tileHandler.paint();
 			player.paint();
+			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
+			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);
 		});
 	}
 
@@ -86,7 +92,7 @@ public class GameLoop extends Thread {
 			
 			//Si el tiempo acumulado es mayor o igual a 1 segundo (1.000.000.000 nanosegundos)
 			if(temp >= 1000000000) {
-				System.out.println("FPS: "+ pintarFPS);
+				this.fps = pintarFPS;
 				//Se reinician para calcularlos en el próximo segundo
 				pintarFPS = 0;
 				temp = 0;
@@ -94,6 +100,19 @@ public class GameLoop extends Thread {
 		}
 		
 	}
+	
+	public int getFps() {
+		return fps;
+	}
+	
+	public TileHandler getHandler() {
+		return tileHandler;
+	}
+	
+	public CollisionChecker getChecker() {
+		return checker;
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}

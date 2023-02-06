@@ -57,9 +57,7 @@ public class SnowParticleEmitter {
 				}
 				try {
 					Thread.sleep(5);
-				} catch(InterruptedException ex) {
-					ex.printStackTrace();
-				}
+				} catch(InterruptedException ex) {}
 			}
 		});
 		

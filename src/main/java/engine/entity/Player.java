@@ -3,10 +3,10 @@ package engine.entity;
 
 import engine.Direction;
 import engine.GameVariables;
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
 import threads.GameLoop;
 
 public class Player extends Entity {
@@ -16,8 +16,6 @@ public class Player extends Entity {
 	private GraphicsContext context;
 	private boolean idle;
 	
-	public static Player instance;
-
 	public final int screenX;
 	public final int screenY;
 	
@@ -32,12 +30,12 @@ public class Player extends Entity {
 		screenX = GameVariables.SCREEN_WIDTH / 2;
 		screenY = GameVariables.SCREEN_HEIGHT / 2;
 		
+		areaSolid = new Rectangle(0, 0, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
+		
 //		screenX = 100;
 //		screenY = 100;
 		setValoresPorDefecto();
 		loadImages();
-		
-		instance = this;
 	}
 	
 	public void setValoresPorDefecto() {
@@ -49,18 +47,31 @@ public class Player extends Entity {
 	}
 	
 	public void update() {
+		colision = false;
+
 		if(loop.upPressed && worldY > 0) {
 			direction = Direction.UP;
-			worldY -= speed;
-		} else if(loop.downPressed && worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * 1.5)) {
+			loop.getChecker().checkTile(this);
+			if(!colision)
+				worldY -= speed;		
+			
+		} else if(loop.downPressed && worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER)) {
 			direction = Direction.DOWN;
-			worldY += speed;
+			loop.getChecker().checkTile(this);
+			if(!colision)
+				worldY += speed;			
+			
 		} else if(loop.leftPressed && worldX > 0) {
 			direction = Direction.LEFT;
-			worldX -= speed;
-		} else if(loop.rightPressed && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * 1.5) {
+			loop.getChecker().checkTile(this);
+			if(!colision)
+				worldX -= speed;
+			
+		} else if(loop.rightPressed && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
 			direction = Direction.RIGHT;
-			worldX += speed;
+			loop.getChecker().checkTile(this);
+			if(!colision)
+				worldX += speed;
 		}
 		
 	    contImages++;
@@ -76,8 +87,8 @@ public class Player extends Entity {
     	  contImages = 0;
 	    }
 	    
-	    System.out.println("World X:" + worldX);
-	    System.out.println("World Y:" + worldY);
+//	    System.out.println("World X:" + worldX);
+//	    System.out.println("World Y:" + worldY);
 		
 	}
 	
@@ -144,7 +155,7 @@ public class Player extends Entity {
 				img = rightIdle;
 		}
 		
-		context.drawImage(img, screenX, screenY, GameVariables.TILE_SIZE * 1.5, GameVariables.TILE_SIZE * 1.5);
+		context.drawImage(img, screenX, screenY, GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER, GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER);
 
 	}
 	

@@ -4,9 +4,9 @@ public class GameVariables {
 	
 	//Opciones de la pantalla
 	
-	public static final int ORIGINAL_TILE_SIZE = 8; //Valor inicial del tile 8x8
-	public static final int ESCALADO = 4; //Valor del escalado del tile
-	public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * ESCALADO; //valor del tile real (tileOriginal * escalado) 42x42
+	public static final int ORIGINAL_TILE_SIZE = 12; //Valor inicial del tile 12x12
+	public static final int ESCALADO = 3; //Valor del escalado del tile
+	public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * ESCALADO; //valor del tile real (tileOriginal * escalado) 36x36
 	
 	public static final int MAX_SCREEN_COL = 25;  //el juego consta de 25 columnas y filas
 	public static final int MAX_SCREEN_ROW = 25;
@@ -23,7 +23,8 @@ public class GameVariables {
 	public static int playerX = SCREEN_WIDTH / 2;
 	public static int playerY = SCREEN_HEIGHT / 2;
 	public static final int SPEED = 4;
-
+	public static final double ESCALADO_PLAYER = 1.5;
+	
 	//opciones del mapa
 	public static final int MAX_WORLD_COL = 25;
 	public static final int MAX_WORLD_ROW = 25;

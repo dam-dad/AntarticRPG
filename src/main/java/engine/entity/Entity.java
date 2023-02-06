@@ -2,6 +2,7 @@ package engine.entity;
 
 import engine.Direction;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
 
 public abstract class Entity {
 
@@ -13,4 +14,8 @@ public abstract class Entity {
 	
 	public int contImages = 0;
 	public int spriteNum = 0;
+	
+	public Rectangle areaSolid;
+	public boolean colision = false;
+	
 }

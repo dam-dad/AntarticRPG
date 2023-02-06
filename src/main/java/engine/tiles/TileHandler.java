@@ -9,6 +9,8 @@ import engine.GameVariables;
 import engine.entity.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import threads.GameLoop;
 
 public class TileHandler {
@@ -39,6 +41,7 @@ public class TileHandler {
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/floor.png"));
 			} else if (i == 1) {
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/piedra.png"));
+				tiles[i].colision = true;
 			} else if (i == 2) {
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/hielo/hielo0.png"));
 			} else if (i == 3) {
@@ -79,13 +82,13 @@ public class TileHandler {
 	}
 	
 	public void paint() {
-
+		
 		if(!p.isIdle()) {
 			
-//			context.setFill(Color.AQUA);
-//			context.fillRect(0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
-			
 			context.drawImage(new Image(getClass().getResourceAsStream("/assets/textureImages/water.png")), 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
+			context.setFill(Color.BLACK);
+			context.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/dogicapixel.ttf"), 12));
+			
 			int worldCol = 0;
 			int worldRow = 0;
 			
@@ -99,7 +102,6 @@ public class TileHandler {
 				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
 
 				context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
-
 				
 				worldCol++;
 				
@@ -112,5 +114,14 @@ public class TileHandler {
 		}
 		
 	}
+	
+	public int[][] getMapNum() {
+		return mapNum;
+	}
+	
+	public Tile[] getTiles() {
+		return tiles;
+	}
+	
 }
 	
