@@ -1,15 +1,14 @@
 package engine.tiles;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import engine.GameVariables;
 import engine.entity.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import threads.GameLoop;
 
 public class TileHandler {
@@ -35,40 +34,44 @@ public class TileHandler {
 		water = new Image(getClass().getResourceAsStream("/assets/textureImages/water.png"));
 		
 		loadImages();
-		loadMap("/maps/Test.txt");
+		
+		File mapFile = new File(TileHandler.class.getResource("/maps/Map1.tmj").getFile());
+		loadMap(mapFile);
 	}
 
 	private void loadImages() {
 		for (int i = 0; i < GameVariables.MAX_SCREEN_COL; i++) {
 			tiles[i] = new Tile();
-			if (i == 0) {
-				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/floor.png"));
-			} else if (i == 1) {
-				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/piedra.png"));
-				tiles[i].colision = true;
-			} else if (i == 2) {
-				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/hielo/hielo0.png"));
-			} else if (i == 3) {
-				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/hielo/hielo1.png"));
-			} else if (i == 4) {
-				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/images/hielo/hielo2.png"));
+			if (i == 25 || i == 26) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
+			} else if (i == 10) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/Snow.png"));
+			} else if (i == 15) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/snowedCube.png"));
+			} else if (i == 59) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeBottomLeft.png"));
+			} else if (i == 60) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeBottomRight.png"));
+			} else if (i == 49) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeTopLeft.png"));
+			} else if (i == 50) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeTopRight.png"));
+			} else if (i == 40) {
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeCenter.png"));
 			} 
 		}
 	}
 
-	public void loadMap(String map) {
+	public void loadMap(File mapFile) {//String map) {
+		String linea;	
+		String nums[] = null;
 		
-		try {
-			InputStream is = getClass().getResourceAsStream(map);
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String linea;
-			String[] nums = null; 
-			
-			int col = 0;
-			int row = 0;
-			
+		int col = 0;
+		int row = 0;
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader(mapFile))) {
 			while(col < GameVariables.MAX_WORLD_COL && row < GameVariables.MAX_WORLD_ROW) {
-				linea = br.readLine();
+				linea = reader.readLine();
 				while(col < GameVariables.MAX_WORLD_COL) {
 					nums = linea.split(" ");
 					mapNum[col][row] = Integer.parseInt(nums[col]);
@@ -78,11 +81,11 @@ public class TileHandler {
 					col = 0;
 					row++;
 				}
-			}
-		} catch(IOException e) {
-			e.printStackTrace();
+				
+			}	
+		} catch(IOException ex) {
+			ex.printStackTrace();
 		}
-		
 	}
 	
 	public void paint() {
