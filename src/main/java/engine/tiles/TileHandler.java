@@ -10,7 +10,6 @@ import engine.entity.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import threads.GameLoop;
 
 public class TileHandler {
@@ -19,6 +18,9 @@ public class TileHandler {
 	private Tile[] tiles;
 	private GraphicsContext context;
 	private Player p;
+	
+	private Image water;
+	
 	int mapNum[][];
 	
 	public TileHandler(GameLoop loop, Player p) {
@@ -29,6 +31,8 @@ public class TileHandler {
 		mapNum = new int[GameVariables.MAX_WORLD_COL][GameVariables.MAX_WORLD_ROW];
 		this.context = loop.getCanvas().getGraphicsContext2D();
 		this.p = p;
+		
+		water = new Image(getClass().getResourceAsStream("/assets/textureImages/water.png"));
 		
 		loadImages();
 		loadMap("/maps/Test.txt");
@@ -85,32 +89,25 @@ public class TileHandler {
 		
 		if(!p.isIdle()) {
 			
-			context.drawImage(new Image(getClass().getResourceAsStream("/assets/textureImages/water.png")), 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
-			context.setFill(Color.BLACK);
-			context.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/dogicapixel.ttf"), 12));
+			context.drawImage(water, 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
 			
-			int worldCol = 0;
-			int worldRow = 0;
-			
-			while(worldCol < GameVariables.MAX_WORLD_COL && worldRow < GameVariables.MAX_WORLD_ROW) {
-				int tileNum = mapNum[worldCol][worldRow];
-				
-				int worldX = worldCol * GameVariables.TILE_SIZE;
-				int worldY = worldRow * GameVariables.TILE_SIZE;
-				
-				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
-				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+					int tileNum = mapNum[worldCol][worldRow];
 
-				context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
-				
-				worldCol++;
-				
-				if(worldCol == GameVariables.MAX_WORLD_COL) {
-					worldCol = 0;
-					worldRow++;
+					int worldX = worldCol * GameVariables.TILE_SIZE;
+					int worldY = worldRow * GameVariables.TILE_SIZE;
+
+					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+
+					if (screenX >= 0 && screenX + GameVariables.TILE_SIZE <= GameVariables.SCREEN_WIDTH && 
+						screenY >= 0 && screenY + GameVariables.TILE_SIZE <= GameVariables.SCREEN_HEIGHT) {
+						context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
+					}
 				}
 			}
-						
+			
 		}
 		
 	}

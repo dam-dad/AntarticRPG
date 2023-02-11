@@ -43,7 +43,6 @@
             <Label styleClass="credits-label" stylesheets="@../../css/menu.css" text="Sergio Martín" />
             <Label styleClass="credits-label" stylesheets="@../../css/menu.css" text="Jozef Pohorelec" />
             <Label styleClass="credits-label" stylesheets="@../../css/menu.css" text="Dónovan Castro" />
-            <Label styleClass="credits-label" stylesheets="@../../css/menu.css" text="Cristian Espinosa" />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" />
