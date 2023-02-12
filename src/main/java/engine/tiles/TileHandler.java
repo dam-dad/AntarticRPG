@@ -11,9 +11,6 @@ import engine.GameVariables;
 import engine.entity.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import threads.GameLoop;
 
 public class TileHandler {
@@ -207,15 +204,20 @@ public class TileHandler {
 			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
 					int tileNum = layers.get(0)[worldCol][worldRow];
+					int tileNum2 = layers.get(1)[worldCol][worldRow];
 
 					int worldX = worldCol * GameVariables.TILE_SIZE;
 					int worldY = worldRow * GameVariables.TILE_SIZE;
 
 					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
 					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-
+					
 					context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE,
 							GameVariables.TILE_SIZE);
+					
+					context.drawImage(tiles[tileNum2].img, screenX, screenY, GameVariables.TILE_SIZE,
+							GameVariables.TILE_SIZE);
+					
 				}
 
 			}
