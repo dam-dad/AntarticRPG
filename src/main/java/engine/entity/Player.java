@@ -30,10 +30,7 @@ public class Player extends Entity {
 		screenX = GameVariables.SCREEN_WIDTH / 2;
 		screenY = GameVariables.SCREEN_HEIGHT / 2;
 		
-		areaSolid = new Rectangle(0, 0, GameVariables.TILE_SIZE + 5, GameVariables.TILE_SIZE + 5);
-		
-//		screenX = 100;
-//		screenY = 100;
+		areaSolid = new Rectangle(0, 0, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
 		setValoresPorDefecto();
 		loadImages();
 	}
@@ -87,9 +84,6 @@ public class Player extends Entity {
     	  contImages = 0;
 	    }
 	    
-//	    System.out.println("World X:" + worldX);
-//	    System.out.println("World Y:" + worldY);
-		
 	}
 	
 	public void paint() {
