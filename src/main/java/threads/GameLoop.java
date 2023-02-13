@@ -56,7 +56,6 @@ public class GameLoop extends Thread {
 	public void paint() { 
 		Platform.runLater(() -> {
 			tileHandler.paint();
-			player.paint();
 			context.setFill(Color.BLACK);
 			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
 			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);

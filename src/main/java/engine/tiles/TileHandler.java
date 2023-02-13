@@ -26,7 +26,8 @@ public class TileHandler {
 	int objectNum[][];
 
 	private List<int[][]> layers = new ArrayList<>();
-
+	private boolean painted = false;
+	
 	public TileHandler(GameLoop loop, Player p) {
 		if (loop == null || p == null)
 			throw new NullPointerException("Valor nulo.");
@@ -50,113 +51,86 @@ public class TileHandler {
 			tiles[i] = new Tile();
 
 			switch (i) {
-			case 0: {
+			case 0: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				break;
-			}
-			case 1: {
+			case 1: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				break;
-			}
-			case 5: {
+			case 5: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeCenter.png"));
 				tiles[i].colision = true;
 				break;
-			}
-			case 6: {
+			case 6: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeTopLeft.png"));
 				tiles[i].colision = true;
 				break;
-			}
-			case 7: {
+			case 7: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeBottomLeft.png"));
 				tiles[i].colision = true;
 				break;
-			}
-			case 8: {
+			case 8: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeBottomRight.png"));
 				tiles[i].colision = true;
 				break;
-			}
-			case 9: {
+			case 9: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeTopRight.png"));
 				tiles[i].colision = true;
 				break;
-			}
-			case 10: {
+			case 10: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/grass.png"));
 				break;
-			}
-			case 11: {
+			case 11: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/dirt.png"));
 				break;
-			}
-			case 12: {
+			case 12: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeLogMedium.png"));
 				break;
-			}
-			case 13: {
+			case 13: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeLogRight.png"));
 				break;
-			}
-			case 14: {
+			case 14: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeBottomRight.png"));
 				break;
-			}
-			case 15: {
+			case 15: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeMediumRight.png"));
 				break;
-			}
-			case 16: {
+			case 16: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeTop.png"));
 				break;
-			}
-			case 17: {
+			case 17: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeMediumLeft.png"));
 				break;
-			}
-			case 18: {
+			case 18: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeBottomLeft.png"));
 				break;
-			}
-			case 19: {
+			case 19: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeLogLeft.png"));
 				break;
-			}
-			case 20: {
+			case 20: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeMedium.png"));
 				break;
-			}
-			case 21: {
+			case 21: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeBottomMedium.png"));
 				break;
-			}
-			case 22: {
+			case 22: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/iceReflex.png"));
 				break;
-			}
-			case 23: {
+			case 23: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/waterHole.png"));
 				break;
-			}
-
-			case 28: {
+			case 28: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowLeft.png"));
 				break;
-			}
-			case 29: {
+			case 29: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowMedium.png"));
 				break;
-			}
-			case 30: {
+			case 30: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowRight.png"));
 				break;
-			}
-			case 150: {
+			case 150: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/air.png"));
 				break;
-			}
-
 			}
 
 		}
@@ -197,14 +171,13 @@ public class TileHandler {
 
 	public void paint() {
 
-		if (!p.isIdle()) {
+		if (!p.isIdle() || !painted) {
 
 			context.drawImage(water, 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
-
+			
 			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
 					int tileNum = layers.get(0)[worldCol][worldRow];
-					int tileNum2 = layers.get(1)[worldCol][worldRow];
 
 					int worldX = worldCol * GameVariables.TILE_SIZE;
 					int worldY = worldRow * GameVariables.TILE_SIZE;
@@ -215,12 +188,30 @@ public class TileHandler {
 					context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE,
 							GameVariables.TILE_SIZE);
 					
+				}
+
+			}
+
+			p.paint();
+
+			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+					int tileNum2 = layers.get(1)[worldCol][worldRow];
+
+					int worldX = worldCol * GameVariables.TILE_SIZE;
+					int worldY = worldRow * GameVariables.TILE_SIZE;
+
+					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+					
 					context.drawImage(tiles[tileNum2].img, screenX, screenY, GameVariables.TILE_SIZE,
 							GameVariables.TILE_SIZE);
 					
 				}
 
 			}
+			
+			painted = true;
 
 		}
 	}

@@ -31,6 +31,7 @@ public class Player extends Entity {
 		screenY = GameVariables.SCREEN_HEIGHT / 2;
 		
 		areaSolid = new Rectangle(0, 0, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
+		
 		setValoresPorDefecto();
 		loadImages();
 	}
@@ -41,9 +42,11 @@ public class Player extends Entity {
 
 		speed = GameVariables.SPEED;
 		direction = Direction.DOWN;
+
 	}
 	
 	public void update() {
+		idle = (!loop.upPressed && !loop.downPressed && !loop.leftPressed && !loop.rightPressed);
 		colision = false;
 
 		if(loop.upPressed && worldY > 0) {
@@ -93,7 +96,6 @@ public class Player extends Entity {
 	private void drawPlayer() {
 		
 		Image img = null;
-		idle = (!loop.upPressed && !loop.downPressed && !loop.leftPressed && !loop.rightPressed);
 		
 		switch(direction) {
 		case UP:
@@ -171,22 +173,6 @@ public class Player extends Entity {
 		leftIdle = new Image(getClass().getResourceAsStream("/assets/player/leftIdle.gif"));
 		rightIdle = new Image(getClass().getResourceAsStream("/assets/player/rightIdle.gif"));
 	}
-	
-//	public int getX() {
-//		return x;
-//	}
-//	
-//	public void setX(int x) {
-//		this.x = x;
-//	}
-//
-//	public int getY() {
-//		return y;
-//	}
-//
-//	public void setY(int y) {
-//		this.y = y;
-//	}
 
 	public int getWorldX() {
 		return worldX;	
