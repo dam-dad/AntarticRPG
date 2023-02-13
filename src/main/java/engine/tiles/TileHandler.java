@@ -42,7 +42,7 @@ public class TileHandler {
 
 		intiStaticEntities();
 
-		File mapFile = new File("src/main/resources/maps/Map2.tmj");
+		File mapFile = new File("src/main/resources/maps/map2.tmj");
 		loadLayers(mapFile);
 	}
 
@@ -128,6 +128,10 @@ public class TileHandler {
 			case 30: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowRight.png"));
 				break;
+			case 149: 
+				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
+				tiles[i].colision = true;
+				break;
 			case 150: 
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/air.png"));
 				break;
@@ -192,8 +196,6 @@ public class TileHandler {
 
 			}
 
-			p.paint();
-
 			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
 					int tileNum2 = layers.get(1)[worldCol][worldRow];
@@ -205,6 +207,24 @@ public class TileHandler {
 					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
 					
 					context.drawImage(tiles[tileNum2].img, screenX, screenY, GameVariables.TILE_SIZE,
+							GameVariables.TILE_SIZE);
+					
+				}
+
+			}
+			p.paint();
+			
+			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+					int tileNum3 = layers.get(2)[worldCol][worldRow]; //perfe, cualquier petada avísame perfe
+
+					int worldX = worldCol * GameVariables.TILE_SIZE;
+					int worldY = worldRow * GameVariables.TILE_SIZE;
+
+					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+					
+					context.drawImage(tiles[tileNum3].img, screenX, screenY, GameVariables.TILE_SIZE,
 							GameVariables.TILE_SIZE);
 					
 				}
