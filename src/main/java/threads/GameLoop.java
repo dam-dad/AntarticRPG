@@ -3,6 +3,7 @@ package threads;
 import engine.CollisionChecker;
 import engine.GameVariables;
 import engine.entity.Player;
+import engine.light.Light;
 import engine.tiles.TileHandler;
 import handlers.KeyHandler;
 import javafx.application.Platform;
@@ -29,6 +30,7 @@ public class GameLoop extends Thread {
 	private KeyHandler keyHandler;
 	private TileHandler tileHandler;
 	private CollisionChecker checker;
+	private Light light;
 	
 	public GameLoop(Canvas canvas) {
 		if(canvas == null)
@@ -43,12 +45,15 @@ public class GameLoop extends Thread {
 		keyHandler = new KeyHandler(canvas, this);
 		tileHandler = new TileHandler(this, player);
 		checker = new CollisionChecker(this);
+//		light = new Light(this, 150);
+		
+//		tileHandler.setLight(light);
+		
 		context.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/dogicapixel.ttf"), 12));
 	}
 	
 	public void update() { 
 		player.update();
-		
 	}
 	
 	//Actuan como capas, se llama primero a TileHandler para dibujar la capa del suelo

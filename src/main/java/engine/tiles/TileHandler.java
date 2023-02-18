@@ -9,6 +9,7 @@ import java.util.List;
 
 import engine.GameVariables;
 import engine.entity.Player;
+import engine.light.Light;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import threads.GameLoop;
@@ -23,10 +24,11 @@ public class TileHandler {
 	private Image water;
 
 	int mapNum[][];
-	int objectNum[][];
 
 	private List<int[][]> layers = new ArrayList<>();
 	private boolean painted = false;
+	
+	private Light light;
 	
 	public TileHandler(GameLoop loop, Player p) {
 		if (loop == null || p == null)
@@ -34,7 +36,6 @@ public class TileHandler {
 		this.loop = loop;
 		tiles = new Tile[GameVariables.MAX_TILES_CONT];
 		mapNum = new int[GameVariables.MAX_WORLD_COL][GameVariables.MAX_WORLD_ROW];
-		objectNum = new int[GameVariables.MAX_WORLD_COL][GameVariables.MAX_WORLD_ROW];
 		this.context = loop.getCanvas().getGraphicsContext2D();
 		this.p = p;
 
@@ -216,8 +217,8 @@ public class TileHandler {
 			
 			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
-					int tileNum3 = layers.get(2)[worldCol][worldRow]; //perfe, cualquier petada avísame perfe
-
+					int tileNum3 = layers.get(2)[worldCol][worldRow]; 
+					
 					int worldX = worldCol * GameVariables.TILE_SIZE;
 					int worldY = worldRow * GameVariables.TILE_SIZE;
 
@@ -231,11 +232,17 @@ public class TileHandler {
 
 			}
 			
+//			light.paint();
+			
 			painted = true;
 
 		}
 	}
 
+	public void setLight(Light light) {
+		this.light = light;
+	}
+	
 	public List<int[][]> getLayers() {
 		return layers;
 	}
