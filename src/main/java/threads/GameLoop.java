@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import engine.CollisionChecker;
 import engine.GameVariables;
 import engine.UserInterface;
+import engine.AssetSetter;
+import engine.entity.Npc;
 import engine.entity.Player;
 import engine.light.Light;
 import engine.tiles.TileHandler;
@@ -32,11 +34,14 @@ public class GameLoop extends Thread {
 	public UserInterface ui; 
 	
 	public Player player;
+	public ArrayList<Npc> npcs = new ArrayList<>();
 
 	private KeyHandler keyHandler;
 	private TileHandler tileHandler;
 	private CollisionChecker checker;
+
 //	private Light light;
+	private AssetSetter aSetter;
 	
 	public GameLoop(Canvas canvas) {
 		if(canvas == null)
@@ -53,6 +58,8 @@ public class GameLoop extends Thread {
 		checker = new CollisionChecker(this);
 		ui = new UserInterface(this);
 		ui.setContext(context);
+		aSetter = new AssetSetter(this);
+		aSetter.setNpc();
 //		light = new Light(this, 150);
 		
 //		tileHandler.setLight(light);
@@ -66,6 +73,7 @@ public class GameLoop extends Thread {
 	
 	//Actuan como capas, se llama primero a TileHandler para dibujar la capa del suelo
 	//Y después se llama al player para que se dibuje por encima de la capa del suelo
+	
 	public void paint() { 
 		Platform.runLater(() -> {
 			tileHandler.paint();
@@ -73,6 +81,8 @@ public class GameLoop extends Thread {
 			context.setFill(Color.BLACK);
 			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
 			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);
+			player.paint();
+			
 		});
 	}
 
@@ -114,6 +124,13 @@ public class GameLoop extends Thread {
 			}
 		}
 		
+	}
+	public ArrayList<Npc> getNpcs() {
+		return npcs;
+	}
+
+	public void setNpcs(ArrayList<Npc> npcs) {
+		this.npcs = npcs;
 	}
 	
 	public int getFps() {

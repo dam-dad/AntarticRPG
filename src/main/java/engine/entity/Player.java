@@ -1,4 +1,4 @@
-package engine.entity;
+ package engine.entity;
 
 
 import engine.Direction;
@@ -15,14 +15,13 @@ public class Player extends Entity {
 	private GameLoop loop;
 	private GraphicsContext context;
 	private boolean idle;
-	
 	public final int screenX;
 	public final int screenY;
 	
 	private double hearts;
 		
 	public Player(Canvas c, GameLoop loop) {
-		super();
+		super(loop);
 		if(c == null || loop == null)
 			throw new NullPointerException("Valor nulo.");
 		this.c = c;
@@ -95,6 +94,7 @@ public class Player extends Entity {
 	
 	public void paint() {
 		drawPlayer();
+		
 	}
 	
 	private void drawPlayer() {
