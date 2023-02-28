@@ -3,9 +3,11 @@ package engine.entity;
 import engine.Direction;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
+import threads.GameLoop;
 
 public abstract class Entity {
 
+	GameLoop gp;
 	public int worldX, worldY;
 	public int speed;
 	
@@ -15,7 +17,11 @@ public abstract class Entity {
 	public int contImages = 0;
 	public int spriteNum = 0;
 	
-	public Rectangle areaSolid;
+	public Rectangle areaSolid = new Rectangle(0, 0, 36, 36);
 	public boolean colision = false;
+	
+	public Entity(GameLoop gl) {
+		
+	}
 	
 }
