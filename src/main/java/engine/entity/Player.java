@@ -19,6 +19,8 @@ public class Player extends Entity {
 	public final int screenX;
 	public final int screenY;
 	
+	private double hearts;
+		
 	public Player(Canvas c, GameLoop loop) {
 		super();
 		if(c == null || loop == null)
@@ -43,6 +45,8 @@ public class Player extends Entity {
 		speed = GameVariables.SPEED;
 		direction = Direction.DOWN;
 
+		hearts = GameVariables.MAX_HEARTS;
+		
 	}
 	
 	public void update() {
@@ -51,25 +55,25 @@ public class Player extends Entity {
 
 		if(loop.upPressed && worldY > 0) {
 			direction = Direction.UP;
-			loop.getChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if(!colision)
 				worldY -= speed;		
 			
 		} else if(loop.downPressed && worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER)) {
 			direction = Direction.DOWN;
-			loop.getChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if(!colision)
 				worldY += speed;			
 			
 		} else if(loop.leftPressed && worldX > 0) {
 			direction = Direction.LEFT;
-			loop.getChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if(!colision)
 				worldX -= speed;
 			
 		} else if(loop.rightPressed && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
 			direction = Direction.RIGHT;
-			loop.getChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if(!colision)
 				worldX += speed;
 		}
@@ -192,6 +196,10 @@ public class Player extends Entity {
 
 	public boolean isIdle() {
 		return idle;
+	}
+	
+	public double getHearts() {
+		return hearts;
 	}
 	
 }

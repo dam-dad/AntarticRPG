@@ -1,7 +1,10 @@
 package threads;
 
+import java.util.ArrayList;
+
 import engine.CollisionChecker;
 import engine.GameVariables;
+import engine.UserInterface;
 import engine.entity.Player;
 import engine.light.Light;
 import engine.tiles.TileHandler;
@@ -11,6 +14,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import object.SuperObject;
 
 /*
  * Gameloop
@@ -24,13 +28,15 @@ public class GameLoop extends Thread {
 	
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean inGame = true;	
-
+	public ArrayList<SuperObject> superObjects = new ArrayList<>();
+	public UserInterface ui; 
+	
 	public Player player;
 
 	private KeyHandler keyHandler;
 	private TileHandler tileHandler;
 	private CollisionChecker checker;
-	private Light light;
+//	private Light light;
 	
 	public GameLoop(Canvas canvas) {
 		if(canvas == null)
@@ -45,6 +51,8 @@ public class GameLoop extends Thread {
 		keyHandler = new KeyHandler(canvas, this);
 		tileHandler = new TileHandler(this, player);
 		checker = new CollisionChecker(this);
+		ui = new UserInterface(this);
+		ui.setContext(context);
 //		light = new Light(this, 150);
 		
 //		tileHandler.setLight(light);
@@ -61,6 +69,7 @@ public class GameLoop extends Thread {
 	public void paint() { 
 		Platform.runLater(() -> {
 			tileHandler.paint();
+			ui.paint();
 			context.setFill(Color.BLACK);
 			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
 			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);
@@ -115,7 +124,7 @@ public class GameLoop extends Thread {
 		return tileHandler;
 	}
 	
-	public CollisionChecker getChecker() {
+	public CollisionChecker getCollisionChecker() {
 		return checker;
 	}
 	
