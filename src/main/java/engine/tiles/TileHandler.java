@@ -6,20 +6,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import engine.GameVariables;
+import engine.entity.Npc;
 import engine.entity.Player;
 import engine.light.Light;
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import threads.GameLoop;
 
-public class TileHandler {
+public class TileHandler extends Thread {
 
 	private GameLoop loop;
 	private Tile[] tiles;
 	private GraphicsContext context;
 	private Player p;
+	private Npc npc;
 
 	private Image water;
 
@@ -27,10 +33,11 @@ public class TileHandler {
 
 	private List<int[][]> layers = new ArrayList<>();
 	private boolean painted = false;
-	
+
 	private Light light;
-	
-	public TileHandler(GameLoop loop, Player p) {
+	private Thread paintThread;
+
+	public TileHandler(GameLoop loop, Player p, Npc npc) {
 		if (loop == null || p == null)
 			throw new NullPointerException("Valor nulo.");
 		this.loop = loop;
@@ -38,6 +45,7 @@ public class TileHandler {
 		mapNum = new int[GameVariables.MAX_WORLD_COL][GameVariables.MAX_WORLD_ROW];
 		this.context = loop.getCanvas().getGraphicsContext2D();
 		this.p = p;
+		this.npc = npc;
 
 		water = new Image(getClass().getResourceAsStream("/assets/textureImages/water.png"));
 
@@ -52,81 +60,81 @@ public class TileHandler {
 			tiles[i] = new Tile();
 
 			switch (i) {
-			case 0: 
+			case 0:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				break;
-			case 1: 
+			case 1:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				break;
-			case 5: 
+			case 5:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeCenter.png"));
 				tiles[i].colision = true;
 				break;
-			case 6: 
+			case 6:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeTopLeft.png"));
 				tiles[i].colision = true;
 				break;
-			case 7: 
+			case 7:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeBottomLeft.png"));
 				tiles[i].colision = true;
 				break;
-			case 8: 
+			case 8:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeBottomRight.png"));
 				tiles[i].colision = true;
 				break;
-			case 9: 
+			case 9:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/LakeTopRight.png"));
 				tiles[i].colision = true;
 				break;
-			case 10: 
+			case 10:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/grass.png"));
 				break;
-			case 11: 
+			case 11:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/dirt.png"));
 				break;
-			case 12: 
+			case 12:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeLogMedium.png"));
 				break;
-			case 13: 
+			case 13:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeLogRight.png"));
 				break;
-			case 14: 
+			case 14:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeBottomRight.png"));
 				break;
-			case 15: 
+			case 15:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeMediumRight.png"));
 				break;
-			case 16: 
+			case 16:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeTop.png"));
 				break;
-			case 17: 
+			case 17:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeMediumLeft.png"));
 				break;
-			case 18: 
+			case 18:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeBottomLeft.png"));
 				break;
-			case 19: 
+			case 19:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeLogLeft.png"));
 				break;
-			case 20: 
+			case 20:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeMedium.png"));
 				break;
-			case 21: 
+			case 21:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeBottomMedium.png"));
 				break;
-			case 22: 
+			case 22:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/iceReflex.png"));
 				break;
-			case 23: 
+			case 23:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/waterHole.png"));
 				break;
-			case 28: 
+			case 28:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowLeft.png"));
 				break;
-			case 29: 
+			case 29:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowMedium.png"));
 				break;
-			case 30: 
+			case 30:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowRight.png"));
 				break;
 //			case 31: 
@@ -327,14 +335,14 @@ public class TileHandler {
 //			case 97: 
 //				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house47.png"));
 //				break;
-			case 149: 
+			case 149:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				tiles[i].colision = true;
 				break;
-			case 150: 
+			case 150:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/air.png"));
 				break;
-				
+
 			}
 
 		}
@@ -413,6 +421,7 @@ public class TileHandler {
 
 			}
 			p.paint();
+			npc.paint();
 			
 			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
@@ -428,20 +437,19 @@ public class TileHandler {
 							GameVariables.TILE_SIZE);
 					
 				}
-
 			}
 			
 //			light.paint();
-			
+//			
 			painted = true;
-
+//
 		}
 	}
 
 	public void setLight(Light light) {
 		this.light = light;
 	}
-	
+
 	public List<int[][]> getLayers() {
 		return layers;
 	}

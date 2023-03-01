@@ -16,11 +16,13 @@ public class AssetSetter {
 	}
 	
 	public void setNpc() {
-//		gl.npc[0] = new Npc(gl);
-//		gl.npc[0].worldX = GameVariables.TILE_SIZE;
-//		gl.npc[0].worldY = GameVariables.TILE_SIZE;
-		// hacer en un arrayList
-
+		gl.getNpcs().add(0, new Npc(gl));
+		gl.getNpcs().get(0).worldX = GameVariables.TILE_SIZE;
+		gl.getNpcs().get(0).worldY = GameVariables.TILE_SIZE;
 	
+	}
+	
+	public Npc getNpc() {
+		return gl.getNpcs().get(0);
 	}
 }

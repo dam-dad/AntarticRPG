@@ -1,6 +1,7 @@
  package engine.entity;
 
 
+import engine.Animation;
 import engine.Direction;
 import engine.GameVariables;
 import javafx.scene.canvas.Canvas;
@@ -17,6 +18,7 @@ public class Player extends Entity {
 	private boolean idle;
 	public final int screenX;
 	public final int screenY;
+	private Animation animation;
 	
 	public Player(Canvas c, GameLoop loop) {
 		super(loop);
@@ -44,7 +46,7 @@ public class Player extends Entity {
 
 	}
 	
-	public void update() {
+	public void update(long timeDifference) {
 		idle = (!loop.upPressed && !loop.downPressed && !loop.leftPressed && !loop.rightPressed);
 		colision = false;
 
@@ -85,6 +87,7 @@ public class Player extends Entity {
     		  spriteNum = 0;
     	  contImages = 0;
 	    }
+	    //animation.update(timeDifference);
 	    
 	}
 	
