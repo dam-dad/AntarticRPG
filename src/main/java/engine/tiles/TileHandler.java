@@ -11,7 +11,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import engine.GameVariables;
+<<<<<<< HEAD
 import engine.entity.Npc;
+=======
+import engine.UserInterface;
+>>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
 import engine.entity.Player;
 import engine.light.Light;
 import javafx.application.Platform;
@@ -49,13 +53,13 @@ public class TileHandler extends Thread {
 
 		water = new Image(getClass().getResourceAsStream("/assets/textureImages/water.png"));
 
-		intiStaticEntities();
+		initStaticEntities();
 
 		File mapFile = new File("src/main/resources/maps/mapa4.tmj");
 		loadLayers(mapFile);
 	}
 
-	private void intiStaticEntities() {
+	private void initStaticEntities() {
 		for (int i = 0; i < GameVariables.MAX_TILES_CONT; i++) {
 			tiles[i] = new Tile();
 
