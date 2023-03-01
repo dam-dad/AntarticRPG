@@ -17,7 +17,11 @@ public class GameVariables {
 	public static final int FPS = 60; //FPS deseados
 	
 	//Intervalo de actualización en nanosegundos (tiempo mínimo que debe transcurrir entre actualizaciones consecutivas)
-	public static final int INTERVALO = 1000000000/FPS;
+	public static final int INTERVALO = 1000000000;
+	public static final long TARGET_FPS = 60;
+	public static final long TARGET_FRAME_TIME = 1_000_000_000 / TARGET_FPS; //60 FPS
+	public static final double MAX_ELAPSED_SECONDS = 0.1;
+	public static final long MAX_ELAPSED_NANOSECONDS = 1_000_000_000;
 	
 	//Opciones del jugador
 	public static int playerX = SCREEN_WIDTH / 2;

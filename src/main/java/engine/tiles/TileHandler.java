@@ -39,14 +39,9 @@ public class TileHandler extends Thread {
 	private boolean painted = false;
 
 	private Light light;
-<<<<<<< HEAD
-
-	public TileHandler(GameLoop loop, Player p) {
-=======
 	private Thread paintThread;
 
 	public TileHandler(GameLoop loop, Player p, Npc npc) {
->>>>>>> 8748bdf4e83aea8d6931ccdd89edb2cf504f2f20
 		if (loop == null || p == null)
 			throw new NullPointerException("Valor nulo.");
 		this.loop = loop;
@@ -392,93 +387,66 @@ public class TileHandler extends Thread {
 
 	public void paint() {
 
-		if (!p.isIdle() || !painted) {
+		context.clearRect(0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
+		context.drawImage(water, 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
+		
+		for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+			for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+				int tileNum = layers.get(0)[worldCol][worldRow];
 
-			context.drawImage(water, 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
+				int worldX = worldCol * GameVariables.TILE_SIZE;
+				int worldY = worldRow * GameVariables.TILE_SIZE;
 
-			for (int layer = 0; layer < layers.size(); layer++) {
-				if (layer == 0) {
-					int[][] layerTiles = layers.get(layer);
-					for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
-						for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
-							int tileNum = layerTiles[worldCol][worldRow];
-
-							int worldX = worldCol * GameVariables.TILE_SIZE;
-							int worldY = worldRow * GameVariables.TILE_SIZE;
-
-							int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
-							int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-
-							context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE,
-									GameVariables.TILE_SIZE);
-						}
-					}
-					p.paint(); // pinta la capa intermedia y el jugador
-				} else if (layer == 2) {
-					int[][] layerTiles = layers.get(layer);
-					for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
-						for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
-							int tileNum = layerTiles[worldCol][worldRow];
-
-							int worldX = worldCol * GameVariables.TILE_SIZE;
-							int worldY = worldRow * GameVariables.TILE_SIZE;
-
-							int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
-							int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-
-							context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE,
-									GameVariables.TILE_SIZE);
-						}
-					}
-				} else {
-					continue; // no pinta la capa intermedia (capa 1)
-				}
+				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+				
+				context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE,
+						GameVariables.TILE_SIZE);
+				
 			}
 
-			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
-				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
-					int tileNum2 = layers.get(1)[worldCol][worldRow];
+		}
 
-					int worldX = worldCol * GameVariables.TILE_SIZE;
-					int worldY = worldRow * GameVariables.TILE_SIZE;
+		for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+			for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+				int tileNum2 = layers.get(1)[worldCol][worldRow];
 
-					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
-					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-					
-					context.drawImage(tiles[tileNum2].img, screenX, screenY, GameVariables.TILE_SIZE,
-							GameVariables.TILE_SIZE);
-					
-				}
+				int worldX = worldCol * GameVariables.TILE_SIZE;
+				int worldY = worldRow * GameVariables.TILE_SIZE;
 
+				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+				
+				context.drawImage(tiles[tileNum2].img, screenX, screenY, GameVariables.TILE_SIZE,
+						GameVariables.TILE_SIZE);
+				
 			}
-			p.paint();
-			npc.paint();
-			
-			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
-				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
-					int tileNum3 = layers.get(2)[worldCol][worldRow]; 
-					
-					int worldX = worldCol * GameVariables.TILE_SIZE;
-					int worldY = worldRow * GameVariables.TILE_SIZE;
 
-					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
-					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-					
-					context.drawImage(tiles[tileNum3].img, screenX, screenY, GameVariables.TILE_SIZE,
-							GameVariables.TILE_SIZE);
-					
-				}
+		}
+		p.paint();
+		npc.paint();
+		
+		for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+			for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+				int tileNum3 = layers.get(2)[worldCol][worldRow]; 
+				
+				int worldX = worldCol * GameVariables.TILE_SIZE;
+				int worldY = worldRow * GameVariables.TILE_SIZE;
+
+				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+				
+				context.drawImage(tiles[tileNum3].img, screenX, screenY, GameVariables.TILE_SIZE,
+						GameVariables.TILE_SIZE);
+				
 			}
+		}
 			
 //			light.paint();
-<<<<<<< HEAD
-
-=======
 //			
->>>>>>> 8748bdf4e83aea8d6931ccdd89edb2cf504f2f20
-			painted = true;
+//			painted = true;
 //
-		}
+//		}
 	}
 
 	public void setLight(Light light) {

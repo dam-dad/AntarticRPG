@@ -18,12 +18,8 @@ public class Player extends Entity {
 	private boolean idle;
 	public final int screenX;
 	public final int screenY;
-<<<<<<< HEAD
 	private final int layer = 0;
-=======
 	private Animation animation;
->>>>>>> 8748bdf4e83aea8d6931ccdd89edb2cf504f2f20
-	
 	private double hearts;
 		
 	public Player(Canvas c, GameLoop loop) {

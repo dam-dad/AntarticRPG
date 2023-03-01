@@ -1,10 +1,12 @@
 package threads;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 import engine.AssetSetter;
 import engine.CollisionChecker;
 import engine.EventHandler;
+import engine.GameVariables;
 import engine.UserInterface;
 import engine.entity.Npc;
 import engine.entity.Player;
@@ -34,9 +36,10 @@ public class GameLoop extends AnimationTimer {
 	public Player player;
 	public Npc npc;
 	public ArrayList<Npc> npcs = new ArrayList<>();
-	long timeDifference;
-	long time;
 
+	private long lastTime = 0;
+	private long accumulatedTime = 0;
+	
 	private KeyHandler keyHandler;
 	private TileHandler tileHandler;
 	private CollisionChecker checker;
@@ -76,7 +79,7 @@ public class GameLoop extends AnimationTimer {
 	}
 	
 	public void update(long currentNanoTime) { 
-		player.update(timeDifference);
+		player.update(currentNanoTime);
 		npc.update();	
 	}
 	
@@ -96,20 +99,35 @@ public class GameLoop extends AnimationTimer {
 	
 	@Override
 	public void start() {
-		this.time = System.nanoTime();
 		super.start();
 	}
 	
 	@Override
 	public void handle(long currentNanoTime) {
-		timeDifference = (currentNanoTime - time) / 1000;
-
-		update(timeDifference);
+		
+		if(lastTime == 0) {
+			lastTime = currentNanoTime;
+			return;
+		}
+		
+		long elapsedTime = currentNanoTime - lastTime;
+		lastTime = currentNanoTime;
+		
+		if(elapsedTime > GameVariables.MAX_ELAPSED_NANOSECONDS)
+			elapsedTime = (long) (GameVariables.MAX_ELAPSED_SECONDS * GameVariables.MAX_ELAPSED_NANOSECONDS);
+			
+		accumulatedTime += elapsedTime;
+		
+		if(accumulatedTime > GameVariables.MAX_ELAPSED_SECONDS * GameVariables.MAX_ELAPSED_NANOSECONDS)
+			accumulatedTime = (long) (GameVariables.MAX_ELAPSED_SECONDS * GameVariables.MAX_ELAPSED_NANOSECONDS);
+		
+		while(accumulatedTime >= (long) (1.0 / 60 * GameVariables.MAX_ELAPSED_NANOSECONDS)) {
+			update((long) (1.0 / 60 * 1000));
+			accumulatedTime -= (long) (long) (1.0 / 60 * GameVariables.MAX_ELAPSED_NANOSECONDS);
+		}
+		
 		paint();
 		
-		//render();
-
-		time = currentNanoTime;
 	}
 
 //	@Override
