@@ -196,14 +196,14 @@ public class Npc extends Entity {
 		}
 		
 		if(nueva == Direction.UP && worldY  > 0) {
-			gl.getChecker().checkTile(this);
+			gl.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldY -= speed;
 			else
 				worldX -= speed;
 		}
 		if(nueva == Direction.DOWN && worldY < GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
-			gl.getChecker().checkTile(this);
+			gl.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldY += speed;
 			else
@@ -211,14 +211,14 @@ public class Npc extends Entity {
 		}
 		
 		if(nueva == Direction.LEFT && worldX > 0) {
-			gl.getChecker().checkTile(this);
+			gl.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldX -= speed;
 			else
 				worldY += speed;
 		}
 		if(nueva == Direction.RIGHT && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
-			gl.getChecker().checkTile(this);
+			gl.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldX += speed;
 			else

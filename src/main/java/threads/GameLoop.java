@@ -1,23 +1,18 @@
 package threads;
 
 import java.util.ArrayList;
-import java.util.Random;
 
+import engine.AssetSetter;
 import engine.CollisionChecker;
 import engine.EventHandler;
-import engine.GameVariables;
 import engine.UserInterface;
-import engine.AssetSetter;
 import engine.entity.Npc;
 import engine.entity.Player;
-import engine.light.Light;
 import engine.tiles.TileHandler;
 import handlers.KeyHandler;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import object.SuperObject;
 
@@ -58,16 +53,13 @@ public class GameLoop extends AnimationTimer {
 		
 		canvas.requestFocus();
 		canvas.setFocusTraversable(true);
-<<<<<<< HEAD
-=======
 		
 		player = new Player(canvas, this);
 		keyHandler = new KeyHandler(canvas, this);
-		tileHandler = new TileHandler(this, player);
+		tileHandler = new TileHandler(this, player, npc);
 		checker = new CollisionChecker(this);
 		ui = new UserInterface(this);
 		ui.setContext(context);
->>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
 		aSetter = new AssetSetter(this);
 		aSetter.setNpc();
 		npc = aSetter.getNpc();
@@ -92,17 +84,14 @@ public class GameLoop extends AnimationTimer {
 	//Y después se llama al player para que se dibuje por encima de la capa del suelo
 	
 	public void paint() { 
-<<<<<<< HEAD
 		
 		tileHandler.paint();
-=======
-		Platform.runLater(() -> {
-			tileHandler.paint();
-			ui.paint();
->>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
-			context.setFill(Color.BLACK);
-			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
-			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);
+//		Platform.runLater(() -> {
+//			tileHandler.paint();
+//			ui.paint();
+//			context.setFill(Color.BLACK);
+//			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
+//			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);
 	}
 	
 	@Override
