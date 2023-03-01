@@ -32,4 +32,5 @@ public class GameVariables {
 	public static final int WORLD_HEIGHT = TILE_SIZE * MAX_WORLD_ROW;
 	public static final int MAX_TILES_CONT = 151;
 	
+	public static final int MAX_HEARTS = 3;
 }

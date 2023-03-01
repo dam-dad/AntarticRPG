@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.GameVariables;
+import engine.UserInterface;
 import engine.entity.Player;
 import engine.light.Light;
 import javafx.scene.canvas.GraphicsContext;
@@ -41,13 +42,13 @@ public class TileHandler {
 
 		water = new Image(getClass().getResourceAsStream("/assets/textureImages/water.png"));
 
-		intiStaticEntities();
+		initStaticEntities();
 
 		File mapFile = new File("src/main/resources/maps/mapa4.tmj");
 		loadLayers(mapFile);
 	}
 
-	private void intiStaticEntities() {
+	private void initStaticEntities() {
 		for (int i = 0; i < GameVariables.MAX_TILES_CONT; i++) {
 			tiles[i] = new Tile();
 
@@ -327,7 +328,11 @@ public class TileHandler {
 //			case 97: 
 //				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house47.png"));
 //				break;
+<<<<<<< HEAD
 			case 149:
+=======
+			case 149: 
+>>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				tiles[i].colision = true;
 				break;
@@ -418,6 +423,43 @@ public class TileHandler {
 				}
 			}
 
+<<<<<<< HEAD
+=======
+			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+					int tileNum2 = layers.get(1)[worldCol][worldRow];
+
+					int worldX = worldCol * GameVariables.TILE_SIZE;
+					int worldY = worldRow * GameVariables.TILE_SIZE;
+
+					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+					
+					context.drawImage(tiles[tileNum2].img, screenX, screenY, GameVariables.TILE_SIZE,
+							GameVariables.TILE_SIZE);
+					
+				}
+
+			}
+			p.paint();
+			
+			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
+				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
+					int tileNum3 = layers.get(2)[worldCol][worldRow]; 
+					
+					int worldX = worldCol * GameVariables.TILE_SIZE;
+					int worldY = worldRow * GameVariables.TILE_SIZE;
+
+					int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
+					int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
+					
+					context.drawImage(tiles[tileNum3].img, screenX, screenY, GameVariables.TILE_SIZE,
+							GameVariables.TILE_SIZE);
+					
+				}
+			}
+			
+>>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
 //			light.paint();
 
 			painted = true;
