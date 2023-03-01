@@ -1,6 +1,7 @@
  package engine.entity;
 
 
+import engine.Animation;
 import engine.Direction;
 import engine.GameVariables;
 import javafx.scene.canvas.Canvas;
@@ -17,7 +18,11 @@ public class Player extends Entity {
 	private boolean idle;
 	public final int screenX;
 	public final int screenY;
+<<<<<<< HEAD
 	private final int layer = 0;
+=======
+	private Animation animation;
+>>>>>>> 8748bdf4e83aea8d6931ccdd89edb2cf504f2f20
 	
 	private double hearts;
 		
@@ -49,7 +54,7 @@ public class Player extends Entity {
 		
 	}
 	
-	public void update() {
+	public void update(long timeDifference) {
 		idle = (!loop.upPressed && !loop.downPressed && !loop.leftPressed && !loop.rightPressed);
 		colision = false;
 
@@ -90,6 +95,7 @@ public class Player extends Entity {
     		  spriteNum = 0;
     	  contImages = 0;
 	    }
+	    //animation.update(timeDifference);
 	    
 	}
 	

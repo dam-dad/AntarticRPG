@@ -6,21 +6,30 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import engine.GameVariables;
+
+import engine.entity.Npc;
+
 import engine.UserInterface;
+
 import engine.entity.Player;
 import engine.light.Light;
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import threads.GameLoop;
 
-public class TileHandler {
+public class TileHandler extends Thread {
 
 	private GameLoop loop;
 	private Tile[] tiles;
 	private GraphicsContext context;
 	private Player p;
+	private Npc npc;
 
 	private Image water;
 
@@ -30,8 +39,14 @@ public class TileHandler {
 	private boolean painted = false;
 
 	private Light light;
+<<<<<<< HEAD
 
 	public TileHandler(GameLoop loop, Player p) {
+=======
+	private Thread paintThread;
+
+	public TileHandler(GameLoop loop, Player p, Npc npc) {
+>>>>>>> 8748bdf4e83aea8d6931ccdd89edb2cf504f2f20
 		if (loop == null || p == null)
 			throw new NullPointerException("Valor nulo.");
 		this.loop = loop;
@@ -39,6 +54,7 @@ public class TileHandler {
 		mapNum = new int[GameVariables.MAX_WORLD_COL][GameVariables.MAX_WORLD_ROW];
 		this.context = loop.getCanvas().getGraphicsContext2D();
 		this.p = p;
+		this.npc = npc;
 
 		water = new Image(getClass().getResourceAsStream("/assets/textureImages/water.png"));
 
@@ -328,7 +344,7 @@ public class TileHandler {
 //			case 97: 
 //				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house47.png"));
 //				break;
-			case 149: 
+			case 149:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				tiles[i].colision = true;
 				break;
@@ -436,6 +452,7 @@ public class TileHandler {
 
 			}
 			p.paint();
+			npc.paint();
 			
 			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
@@ -454,9 +471,13 @@ public class TileHandler {
 			}
 			
 //			light.paint();
+<<<<<<< HEAD
 
+=======
+//			
+>>>>>>> 8748bdf4e83aea8d6931ccdd89edb2cf504f2f20
 			painted = true;
-
+//
 		}
 	}
 
