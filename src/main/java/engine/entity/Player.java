@@ -191,13 +191,12 @@ public class Player extends Entity {
 		return idle;
 	}
 	
-<<<<<<< HEAD
 	public int getLayer() {
 		return layer;
-=======
+	}
+	
 	public double getHearts() {
 		return hearts;
->>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
 	}
 	
 }

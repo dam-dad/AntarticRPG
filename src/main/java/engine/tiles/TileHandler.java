@@ -328,11 +328,7 @@ public class TileHandler {
 //			case 97: 
 //				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house47.png"));
 //				break;
-<<<<<<< HEAD
-			case 149:
-=======
 			case 149: 
->>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/blueSnow.png"));
 				tiles[i].colision = true;
 				break;
@@ -423,8 +419,6 @@ public class TileHandler {
 				}
 			}
 
-<<<<<<< HEAD
-=======
 			for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 				for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
 					int tileNum2 = layers.get(1)[worldCol][worldRow];
@@ -459,7 +453,6 @@ public class TileHandler {
 				}
 			}
 			
->>>>>>> 3e3853d219df2284978c3ec40a1478aedc919850
 //			light.paint();
 
 			painted = true;
