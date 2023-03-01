@@ -18,6 +18,7 @@ public class Player extends Entity {
 	
 	public final int screenX;
 	public final int screenY;
+	private final int layer = 0;
 	
 	public Player(Canvas c, GameLoop loop) {
 		super();
@@ -105,8 +106,6 @@ public class Player extends Entity {
 				img = up2;
 			else if(spriteNum == 3)
 				img = up3;
-			else
-				img = up1;
 			break;
 		case DOWN:
 			if(spriteNum == 1)
@@ -115,8 +114,6 @@ public class Player extends Entity {
 				img = down2;
 			else if(spriteNum == 3)
 				img = down3;
-			else
-				img = down1;
 			break;
 		case LEFT:
 			if(spriteNum == 1)
@@ -125,8 +122,6 @@ public class Player extends Entity {
 				img = left2;
 			else if(spriteNum == 3)
 				img = left3;
-			else 
-				img = left1;
 			break;
 		case RIGHT:
 			if(spriteNum == 1)
@@ -135,8 +130,6 @@ public class Player extends Entity {
 				img = right2;
 			else if(spriteNum == 3)
 				img = right3;
-			else
-				img = right1;
 			break;
 		}
 
@@ -192,6 +185,10 @@ public class Player extends Entity {
 
 	public boolean isIdle() {
 		return idle;
+	}
+	
+	public int getLayer() {
+		return layer;
 	}
 	
 }
