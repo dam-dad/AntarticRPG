@@ -1,5 +1,4 @@
- package engine.entity;
-
+package engine.entity;
 
 import engine.Animation;
 import engine.Direction;
@@ -21,24 +20,24 @@ public class Player extends Entity {
 	private final int layer = 0;
 	private Animation animation;
 	private double hearts;
-		
+
 	public Player(Canvas c, GameLoop loop) {
 		super(loop);
-		if(c == null || loop == null)
+		if (c == null || loop == null)
 			throw new NullPointerException("Valor nulo.");
 		this.c = c;
 		this.context = c.getGraphicsContext2D();
 		this.loop = loop;
-		
+
 		screenX = GameVariables.SCREEN_WIDTH / 2;
 		screenY = GameVariables.SCREEN_HEIGHT / 2;
-		
+
 		areaSolid = new Rectangle(0, 0, GameVariables.TILE_SIZE, GameVariables.TILE_SIZE);
-		
+
 		setValoresPorDefecto();
 		loadImages();
 	}
-	
+
 	public void setValoresPorDefecto() {
 		worldX = GameVariables.TILE_SIZE * 23;
 		worldY = GameVariables.TILE_SIZE * 21;
@@ -47,113 +46,117 @@ public class Player extends Entity {
 		direction = Direction.DOWN;
 
 		hearts = GameVariables.MAX_HEARTS;
-		
+
 	}
-	
+
 	public void update(long timeDifference) {
 		idle = (!loop.upPressed && !loop.downPressed && !loop.leftPressed && !loop.rightPressed);
 		colision = false;
 
-		if(loop.upPressed && worldY > 0) {
+		if (loop.upPressed && worldY > 0) {
 			direction = Direction.UP;
 			loop.getCollisionChecker().checkTile(this);
-			if(!colision)
-				worldY -= speed;		
-			
-		} else if(loop.downPressed && worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER)) {
+			if (!colision)
+				worldY -= speed;
+
+		} else if (loop.downPressed
+				&& worldY < (GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER)) {
 			direction = Direction.DOWN;
 			loop.getCollisionChecker().checkTile(this);
-			if(!colision)
-				worldY += speed;			
-			
-		} else if(loop.leftPressed && worldX > 0) {
+			if (!colision)
+				worldY += speed;
+
+		} else if (loop.leftPressed && worldX > 0) {
 			direction = Direction.LEFT;
 			loop.getCollisionChecker().checkTile(this);
-			if(!colision)
+			if (!colision)
 				worldX -= speed;
-			
-		} else if(loop.rightPressed && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
+
+		} else if (loop.rightPressed
+				&& worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
 			direction = Direction.RIGHT;
 			loop.getCollisionChecker().checkTile(this);
-			if(!colision)
+			if (!colision)
 				worldX += speed;
 		}
+
+		contImages++;
+		if (contImages > 12) {
+			if (spriteNum == 0)
+				spriteNum = 1;
+			else if (spriteNum == 1)
+				spriteNum = 2;
+			else if (spriteNum == 2)
+				spriteNum = 1;
+			else if (spriteNum == 1)
+				spriteNum = 0;
+			contImages = 0;
+		}
+		// animation.update(timeDifference);
 		
-	    contImages++;
-	    if(contImages > 12) {
-    	  if(spriteNum == 0)
-    	    spriteNum = 1;
-    	  else if(spriteNum == 1)
-    	    spriteNum = 2;
-    	  else if(spriteNum == 2)
-    	    spriteNum = 1;
-    	  else if(spriteNum == 1)
-    		  spriteNum = 0;
-    	  contImages = 0;
-	    }
-	    //animation.update(timeDifference);
-	    
+		loop.geteHandler().checkEventChangeMap();
 	}
-	
+
 	public void paint() {
 		drawPlayer();
-		
+
 	}
-	
+
 	private void drawPlayer() {
-		
+
 		Image img = null;
-		
-		switch(direction) {
+
+		switch (direction) {
 		case UP:
-			if(spriteNum == 1)
+			if (spriteNum == 1)
 				img = up1;
-			else if(spriteNum == 2)
+			else if (spriteNum == 2)
 				img = up2;
-			else if(spriteNum == 3)
+			else if (spriteNum == 3)
 				img = up3;
 			break;
 		case DOWN:
-			if(spriteNum == 1)
+			if (spriteNum == 1)
 				img = down1;
-			else if(spriteNum == 2)
+			else if (spriteNum == 2)
 				img = down2;
-			else if(spriteNum == 3)
+			else if (spriteNum == 3)
 				img = down3;
 			break;
 		case LEFT:
-			if(spriteNum == 1)
+			if (spriteNum == 1)
 				img = left1;
-			else if(spriteNum == 2)
+			else if (spriteNum == 2)
 				img = left2;
-			else if(spriteNum == 3)
+			else if (spriteNum == 3)
 				img = left3;
 			break;
 		case RIGHT:
-			if(spriteNum == 1)
+			if (spriteNum == 1)
 				img = right1;
-			else if(spriteNum == 2)
+			else if (spriteNum == 2)
 				img = right2;
-			else if(spriteNum == 3)
+			else if (spriteNum == 3)
 				img = right3;
 			break;
 		}
 
-		if(idle) {
-			if(direction == Direction.UP)
+		if (idle) {
+			if (direction == Direction.UP)
 				img = upIdle;
-			else if(direction == Direction.DOWN)
+			else if (direction == Direction.DOWN)
 				img = downIdle;
-			else if(direction == Direction.LEFT)
+			else if (direction == Direction.LEFT)
 				img = leftIdle;
-			else if(direction == Direction.RIGHT)
+			else if (direction == Direction.RIGHT)
 				img = rightIdle;
 		}
-		
-		context.drawImage(img, screenX, screenY, GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER, GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER);
+
+		context.drawImage(img, screenX, screenY, GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER,
+				GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER);
 
 	}
-	
+
 	private void loadImages() {
 		up1 = new Image(getClass().getResourceAsStream("/assets/player/upEsquimal.png"));
 		up2 = new Image(getClass().getResourceAsStream("/assets/player/up1Esquimal.png"));
@@ -172,9 +175,15 @@ public class Player extends Entity {
 		leftIdle = new Image(getClass().getResourceAsStream("/assets/player/leftIdle.gif"));
 		rightIdle = new Image(getClass().getResourceAsStream("/assets/player/rightIdle.gif"));
 	}
-
+	public void damage(double damage) {
+		if (hearts > 0 && hearts != 0.5) {
+			hearts = hearts - damage;
+		}
+	
+		
+	}
 	public int getWorldX() {
-		return worldX;	
+		return worldX;
 	}
 
 	public int getWorldY() {
@@ -192,13 +201,15 @@ public class Player extends Entity {
 	public boolean isIdle() {
 		return idle;
 	}
-	
+
 	public int getLayer() {
 		return layer;
 	}
-	
+
 	public double getHearts() {
 		return hearts;
 	}
-	
+
+
+
 }
