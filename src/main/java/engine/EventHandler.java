@@ -1,5 +1,6 @@
 package engine;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,11 +9,13 @@ import threads.GameLoop;
 
 public class EventHandler {
 
+	public boolean isMapChange = false;
 	GameLoop gl;
 	Rectangle eventRect = new Rectangle(23, 23, 2, 2);
 	int eventRectDefaultX, eventRectDefaultY;
 	boolean check = true;
 	Timer timer = new Timer();
+
 
 	public EventHandler(GameLoop gl) {
 		this.gl = gl;
@@ -35,8 +38,11 @@ public class EventHandler {
 	}
 	
 	public void checkEventChangeMap() {
-		if (hit(25, 19, Direction.DOWN)) {
-			System.out.println("cambio de mapa");
+		if (hit(18, 23, Direction.DOWN)) {
+			File nuevoMapa = new File("src/main/resources/maps/mapa1.tmj");
+			gl.getTileHandler().setMapFile(nuevoMapa);
+			gl.getTileHandler().loadLayers(nuevoMapa);
+			isMapChange = true;
 		}
 		
 	}
@@ -66,6 +72,14 @@ public class EventHandler {
 		eventRect.setY(eventRectDefaultY);
 
 		return hit;
+	}
+
+	public boolean isMapChange() {
+		return isMapChange;
+	}
+
+	public void setMapChange(boolean isMapChange) {
+		this.isMapChange = isMapChange;
 	}
 
 }

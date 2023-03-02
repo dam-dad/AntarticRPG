@@ -42,6 +42,7 @@ public class GameLoop extends AnimationTimer {
 
 	private KeyHandler keyHandler;
 	private TileHandler tileHandler;
+
 	private CollisionChecker checker;
 	private EventHandler eHandler = new EventHandler(this);
 
@@ -59,28 +60,29 @@ public class GameLoop extends AnimationTimer {
 
 		player = new Player(canvas, this);
 		keyHandler = new KeyHandler(canvas, this);
-		tileHandler = new TileHandler(this, player, npc);
+		tileHandler = new TileHandler(this, player, npcs);
 		checker = new CollisionChecker(this);
 		ui = new UserInterface(this);
 		ui.setContext(context);
 		aSetter = new AssetSetter(this);
 		aSetter.setNpc();
-		npc = aSetter.getNpc();
-		npc.setContext(context);
-		player = new Player(canvas, this);
-		keyHandler = new KeyHandler(canvas, this);
-		tileHandler = new TileHandler(this, player, npc);
-		checker = new CollisionChecker(this);
+		for (Npc npc : npcs) {
+			npc.setContext(context);
+
 //		light = new Light(this, 150);
 
 //		tileHandler.setLight(light);
 
-		context.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/dogicapixel.ttf"), 12));
+			context.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/dogicapixel.ttf"), 12));
+		}
+
 	}
 
 	public void update(long currentNanoTime) {
 		player.update(currentNanoTime);
-		npc.update();
+		for (Npc npc : npcs) {
+			npc.update();
+		}
 	}
 
 	// Actuan como capas, se llama primero a TileHandler para dibujar la capa del
@@ -130,6 +132,14 @@ public class GameLoop extends AnimationTimer {
 
 		paint();
 
+	}
+
+	public TileHandler getTileHandler() {
+		return tileHandler;
+	}
+
+	public void setTileHandler(TileHandler tileHandler) {
+		this.tileHandler = tileHandler;
 	}
 
 	public EventHandler geteHandler() {
