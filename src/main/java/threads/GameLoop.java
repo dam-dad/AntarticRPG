@@ -1,6 +1,5 @@
 package threads;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 import engine.AssetSetter;
@@ -20,6 +19,11 @@ import object.SuperObject;
 
 /*
  * Gameloop
+ */
+ 
+ /**
+ * <h1> GameLoop <h1>
+ * En la clase
  */
 
 public class GameLoop extends AnimationTimer {
@@ -91,7 +95,7 @@ public class GameLoop extends AnimationTimer {
 		tileHandler.paint();
 //		Platform.runLater(() -> {
 //			tileHandler.paint();
-//			ui.paint();
+			ui.paint();
 //			context.setFill(Color.BLACK);
 //			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
 //			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);
