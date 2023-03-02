@@ -50,6 +50,13 @@ public class Player extends Entity {
 	}
 
 	public void update(long timeDifference) {
+		
+		if (loop.geteHandler().isMapChange) {
+			worldX = GameVariables.TILE_SIZE * 18;
+			worldY = GameVariables.TILE_SIZE * 1;
+			loop.geteHandler().setMapChange(false);
+		}
+		
 		idle = (!loop.upPressed && !loop.downPressed && !loop.leftPressed && !loop.rightPressed);
 		colision = false;
 
