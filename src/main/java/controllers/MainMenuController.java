@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 import config.UserConfig;
 import dad.App;
@@ -61,7 +62,12 @@ public class MainMenuController implements Initializable{
     private SnowParticleEmitter snowEmitter = new SnowParticleEmitter();
     private UserConfig userConfig = optionsMenuController.getUserConfig();
     
+	private int debugCont = 0;
+    
     public MainMenuController() {
+    	
+		System.out.println("MM: Me crea " + debugCont++ + " veces");
+    	
         try{
             FXMLLoader l = new FXMLLoader(getClass().getResource("/fxml/mainMenu/MainMenuView.fxml"));
             l.setController(this);
@@ -115,8 +121,15 @@ public class MainMenuController implements Initializable{
     @FXML
     private void onJugarAction(ActionEvent event) {
     	snowEmitter.stopMainThread();
+    	
+    	GameController gc = new GameController();
+    	
+    	gc.setMusicPlayer(musicPlayer);
+    	gc.setSfxPlayer(sfxPlayer);
+    	gc.playMusic();
+    	
     	StackPane sp = new StackPane();
-    	Task<Scene> cargarEscena = new StartGameTask();
+    	StartGameTask<Scene> cargarEscena = new StartGameTask<>();
     	
     	VBox vbox = new VBox();
     	Label l = new Label("Cargando...");
@@ -144,13 +157,14 @@ public class MainMenuController implements Initializable{
     	
     	App.primaryStage.setScene(new Scene(sp, getView().getWidth(), getView().getHeight()));
     	
-    	GameController gc = new GameController();
-    	gc.setMusicPlayer(musicPlayer);
-    	gc.setSfxPlayer(sfxPlayer);
+    	cargarEscena.setController(gc);
     	
     	cargarEscena.setOnSucceeded(e -> {
-    		App.primaryStage.setScene(new Scene(gc.getView()));
-    		gc.playMusic();
+    		try {
+				App.primaryStage.setScene(cargarEscena.get());
+			} catch (InterruptedException | ExecutionException e1) {
+				e1.printStackTrace();
+			}
     	});    	
     	
     	new Thread(cargarEscena).start();

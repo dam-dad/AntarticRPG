@@ -51,6 +51,8 @@ public class Player extends Entity {
 
 	public void update(long timeDifference) {
 		
+		System.out.println("X: " + this.getWorldX() + " Y: " + this.getWorldY());
+		
 		if (loop.geteHandler().isMapChange) {
 			worldX = GameVariables.TILE_SIZE * 18;
 			worldY = GameVariables.TILE_SIZE * 1;

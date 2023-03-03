@@ -1,6 +1,7 @@
 package engine.entity;
 
 import engine.Direction;
+import engine.GameVariables;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import threads.GameLoop;
@@ -17,11 +18,23 @@ public abstract class Entity {
 	public int contImages = 0;
 	public int spriteNum = 0;
 	
-	public Rectangle areaSolid = new Rectangle(0, 0, 36, 36);
+	public Rectangle areaSolid = new Rectangle(0, 0, GameVariables.ORIGINAL_TILE_SIZE, GameVariables.ORIGINAL_TILE_SIZE);
 	public boolean colision = false;
 	
 	public Entity(GameLoop gl) {
 		
+	}
+	
+	public Rectangle getAreaSolid() {
+		return areaSolid;
+	}
+	
+	public int getWorldX() {
+		return worldX;
+	}
+
+	public int getWorldY() {
+		return worldY;
 	}
 	
 }

@@ -12,13 +12,15 @@ import javafx.scene.image.Image;
 public class Npc extends Entity {
 
 	private GraphicsContext context;
-	private GameLoop gl;
+	private GameLoop loop;
 	private int contador = 0;
-	Direction nueva = Direction.DOWN;
-
-	public Npc(GameLoop gl) {
-		super(gl);
-		this.gl = gl;
+	private Direction nueva = Direction.DOWN;
+	private Player p;
+	
+	public Npc(GameLoop loop, Player p) {
+		super(loop);
+		this.loop = loop;
+		this.p = p;
 
 		direction = Direction.DOWN;
 		speed = 1;
@@ -38,21 +40,15 @@ public class Npc extends Entity {
 		right1 = new Image(getClass().getResourceAsStream("/assets/npc/rightOso.png"));
 		right2 = new Image(getClass().getResourceAsStream("/assets/npc/rightOso2.png"));
 		right3 = new Image(getClass().getResourceAsStream("/assets/npc/rightOso3.png"));
-//		upIdle = new Image(getClass().getResourceAsStream("/assets/player/upIdle.gif"));
-//		downIdle = new Image(getClass().getResourceAsStream("/assets/player/downIdle.gif"));
-//		leftIdle = new Image(getClass().getResourceAsStream("/assets/player/leftIdle.gif"));
-//		rightIdle = new Image(getClass().getResourceAsStream("/assets/player/rightIdle.gif"));
 	}
 
 	public void paint() {
-		// drawNpcTest()
 		drawNpc();
 	}
 
 	private void drawNpc() {
-		int screenX = worldX - gl.player.getWorldX() + gl.player.getScreenX();
-		int screenY = worldY - gl.player.getWorldY() + gl.player.getScreenY();
-		//Image img = new Image(getClass().getResourceAsStream("/assets/player/downEsquimal.png"));
+		int screenX = worldX - loop.getPlayer().getWorldX() + loop.getPlayer().getScreenX();
+		int screenY = worldY - loop.getPlayer().getWorldY() + loop.getPlayer().getScreenY();
 		
 		Image img = null;
 		
@@ -112,62 +108,11 @@ public class Npc extends Entity {
 
 	}
 
-//private void drawNpcTest() {
-//		
-//		Image img = null;
-//		
-//		switch(direction) {
-//		case UP:
-//			if(spriteNum == 1)
-//				img = up1;
-//			else if(spriteNum == 2)
-//				img = up2;
-//			else if(spriteNum == 3)
-//				img = up3;
-//			else
-//				img = up1;
-//			break;
-//		case DOWN:
-//			if(spriteNum == 1)
-//				img = down1;
-//			else if(spriteNum == 2)
-//				img = down2;
-//			else if(spriteNum == 3)
-//				img = down3;
-//			else
-//				img = down1;
-//			break;
-//		case LEFT:
-//			if(spriteNum == 1)
-//				img = left1;
-//			else if(spriteNum == 2)
-//				img = left2;
-//			else if(spriteNum == 3)
-//				img = left3;
-//			else 
-//				img = left1;
-//			break;
-//		case RIGHT:
-//			if(spriteNum == 1)
-//				img = right1;
-//			else if(spriteNum == 2)
-//				img = right2;
-//			else if(spriteNum == 3)
-//				img = right3;
-//			else
-//				img = right1;
-//			break;
-//		}
-//
-//	
-//		
-//		context.drawImage(img, worldX, worldY, GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER, GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER);
-//
-//	}
-
 	public void update() {
 		contador++;
-		if (contador == 60) {
+		if (contador == 200) {
+			checkDamage(p);
+			
 			Random random = new Random();
 			int i = random.nextInt(100) + 1;
 
@@ -189,42 +134,33 @@ public class Npc extends Entity {
 				direction = Direction.RIGHT;
 				nueva = Direction.RIGHT;
 			}
-
-			
-
 			contador = 0;
 		}
 		
 		if(nueva == Direction.UP && worldY  > 0) {
-			gl.getCollisionChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldY -= speed;
-			else
-				worldX -= speed;
 		}
 		if(nueva == Direction.DOWN && worldY < GameVariables.SCREEN_HEIGHT - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
-			gl.getCollisionChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldY += speed;
-			else
-				worldX += speed;
 		}
 		
 		if(nueva == Direction.LEFT && worldX > 0) {
-			gl.getCollisionChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldX -= speed;
-			else
-				worldY += speed;
 		}
 		if(nueva == Direction.RIGHT && worldX < GameVariables.SCREEN_WIDTH - GameVariables.TILE_SIZE * GameVariables.ESCALADO_PLAYER) {
-			gl.getCollisionChecker().checkTile(this);
+			loop.getCollisionChecker().checkTile(this);
 			if (!colision)
 				worldX += speed;
-			else
-				worldY -= speed;
 		}
+		
 		contImages++;
+		
 		if (contImages > 12) {
 			if (spriteNum == 0)
 				spriteNum = 1;
@@ -244,4 +180,14 @@ public class Npc extends Entity {
 		this.context = context;
 	}
 
+	private void checkDamage(Player p) {
+		if (this.getAreaSolid().intersects(p.getAreaSolid().getBoundsInLocal())) {
+	        String npcPosition = String.format("(%d, %d)", this.getWorldX(), this.getWorldY());
+	        String playerPosition = String.format("(%d, %d)", p.getWorldX(), p.getWorldY());
+	        System.out.println("Colisiono en player: " + playerPosition);
+	        System.out.println("Colisiono en oso: " + npcPosition);
+	    }
+//			p.damage(0.5);
+	}
+	
 }

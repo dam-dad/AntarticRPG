@@ -32,6 +32,7 @@ public class GameController implements Initializable {
 	private SnowParticleEmitter emitter = new SnowParticleEmitter();;
 	
 	public GameController() {
+		
 		try { 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/game/GameView.fxml"));
 			loader.setController(this);

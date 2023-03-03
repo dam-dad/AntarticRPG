@@ -6,19 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import engine.GameVariables;
-
 import engine.entity.Npc;
-
-import engine.UserInterface;
-
 import engine.entity.Player;
 import engine.light.Light;
-import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import threads.GameLoop;
@@ -32,7 +24,6 @@ public class TileHandler extends Thread {
 	private ArrayList<Npc> npc;
 	private File mapFile;
 
-
 	private Image water;
 
 	int mapNum[][];
@@ -42,7 +33,7 @@ public class TileHandler extends Thread {
 
 	private Light light;
 	private Thread paintThread;
-
+	
 	public TileHandler(GameLoop loop, Player p, ArrayList<Npc> npc) {
 		if (loop == null || p == null)
 			throw new NullPointerException("Valor nulo.");
@@ -52,7 +43,7 @@ public class TileHandler extends Thread {
 		this.context = loop.getCanvas().getGraphicsContext2D();
 		this.p = p;
 		this.npc = npc;
-
+		
 		water = new Image(getClass().getResourceAsStream("/assets/textureImages/water.png"));
 
 		initStaticEntities();
@@ -143,166 +134,166 @@ public class TileHandler extends Thread {
 			case 30:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/treeShadowRight.png"));
 				break;
-			case 31: 
+			case 31:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house7.png"));
 				break;
-			case 32: 
+			case 32:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house8.png"));
 				break;
-			case 33: 
+			case 33:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house9.png"));
 				break;
-			case 34: 
+			case 34:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house10.png"));
 				break;
-			case 35: 
+			case 35:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house11.png"));
 				break;
-			case 36: 
+			case 36:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house12.png"));
 				break;
-			case 37: 
+			case 37:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house1.png"));
 				break;
-			case 38: 
+			case 38:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house2.png"));
 				break;
-			case 39: 
+			case 39:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house3.png"));
 				break;
-			case 40: 
+			case 40:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house4.png"));
 				break;
-			case 41: 
+			case 41:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house5.png"));
 				break;
-			case 42: 
+			case 42:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house6.png"));
 				break;
-			case 43: 
+			case 43:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house_floor1.png"));
 				break;
-			case 44: 
+			case 44:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house_floor2.png"));
 				break;
-			case 45: 
+			case 45:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house_floor3.png"));
 				break;
-			case 46: 
+			case 46:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house_floor4.png"));
 				break;
-			case 47: 
+			case 47:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house_floor5.png"));
 				break;
-			case 48: 
+			case 48:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/house_floor6.png"));
 				break;
-			case 49: 
+			case 49:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof1.png"));
 				break;
-			case 50: 
+			case 50:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof2.png"));
 				break;
-			case 51: 
+			case 51:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof3.png"));
 				break;
-			case 52: 
+			case 52:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof4.png"));
 				break;
-			case 53: 
+			case 53:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof5.png"));
 				break;
-			case 54: 
+			case 54:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof6.png"));
 				break;
-			case 55: 
+			case 55:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof7.png"));
 				break;
-			case 56: 
+			case 56:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof8.png"));
 				break;
-			case 57: 
+			case 57:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof9.png"));
 				break;
-			case 58: 
+			case 58:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof10.png"));
 				break;
-			case 59: 
+			case 59:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof11.png"));
 				break;
-			case 60: 
+			case 60:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof12.png"));
 				break;
-			case 61: 
+			case 61:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof13.png"));
 				break;
-			case 62: 
+			case 62:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof14.png"));
 				break;
-			case 63: 
+			case 63:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof15.png"));
 				break;
-			case 64: 
+			case 64:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof16.png"));
 				break;
-			case 65: 
+			case 65:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof17.png"));
 				break;
-			case 66: 
+			case 66:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof18.png"));
 				break;
-			case 67: 
+			case 67:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof19.png"));
 				break;
-			case 68: 
+			case 68:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof20.png"));
 				break;
-			case 69: 
+			case 69:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof21.png"));
 				break;
-			case 70: 
+			case 70:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof22.png"));
 				break;
-			case 71: 
+			case 71:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof23.png"));
 				break;
-			case 72: 
+			case 72:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof24.png"));
 				break;
-			case 73: 
+			case 73:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof25.png"));
 				break;
-			case 74: 
+			case 74:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof26.png"));
 				break;
-			case 75: 
+			case 75:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof27.png"));
 				break;
-			case 76: 
+			case 76:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof28.png"));
 				break;
-			case 77: 
+			case 77:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof29.png"));
 				break;
-			case 78: 
+			case 78:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof30.png"));
 				break;
-			case 79: 
+			case 79:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof31.png"));
 				break;
-			case 80: 
+			case 80:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof32.png"));
 				break;
-			case 81: 
+			case 81:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof33.png"));
 				break;
-			case 82: 
+			case 82:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof34.png"));
 				break;
-			case 83: 
+			case 83:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof35.png"));
 				break;
-			case 84: 
+			case 84:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/roof36.png"));
 				break;
 			case 149:
@@ -314,9 +305,7 @@ public class TileHandler extends Thread {
 				break;
 			case 199:
 				tiles[i].img = new Image(getClass().getResourceAsStream("/assets/mapTextures/dirt.png"));
-				
 				break;
-
 			}
 
 		}
@@ -359,26 +348,10 @@ public class TileHandler extends Thread {
 
 		context.clearRect(0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
 		context.drawImage(water, 0, 0, GameVariables.SCREEN_WIDTH, GameVariables.SCREEN_HEIGHT);
-		
+
 		for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 			for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
 				int tileNum = layers.get(0)[worldCol][worldRow];
-
-				int worldX = worldCol * GameVariables.TILE_SIZE;
-				int worldY = worldRow * GameVariables.TILE_SIZE;
-
-				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
-				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-				
-				context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE,
-						GameVariables.TILE_SIZE);
-				
-			}
-
-		}
-
-		for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
-			for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
 				int tileNum2 = layers.get(1)[worldCol][worldRow];
 
 				int worldX = worldCol * GameVariables.TILE_SIZE;
@@ -386,41 +359,45 @@ public class TileHandler extends Thread {
 
 				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
 				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-				
+
+				context.drawImage(tiles[tileNum].img, screenX, screenY, GameVariables.TILE_SIZE,
+						GameVariables.TILE_SIZE);
 				context.drawImage(tiles[tileNum2].img, screenX, screenY, GameVariables.TILE_SIZE,
 						GameVariables.TILE_SIZE);
-				
+
+				p.paint();
+				for (Npc npc : npc) {
+					npc.paint();
+				}
+
 			}
 
 		}
-		p.paint();
-		for(Npc npc : npc) {
-			npc.paint();
-		}
-		
+
 		for (int worldRow = 0; worldRow < GameVariables.MAX_WORLD_ROW; worldRow++) {
 			for (int worldCol = 0; worldCol < GameVariables.MAX_WORLD_COL; worldCol++) {
-				int tileNum3 = layers.get(2)[worldCol][worldRow]; 
-				
+				int tileNum3 = layers.get(2)[worldCol][worldRow];
+
 				int worldX = worldCol * GameVariables.TILE_SIZE;
 				int worldY = worldRow * GameVariables.TILE_SIZE;
 
 				int screenX = worldX - loop.player.getWorldX() + loop.player.getScreenX();
 				int screenY = worldY - loop.player.getWorldY() + loop.player.getScreenY();
-				
+
 				context.drawImage(tiles[tileNum3].img, screenX, screenY, GameVariables.TILE_SIZE,
 						GameVariables.TILE_SIZE);
-				
+
 			}
 		}
-			
+
+	}
+
 //			light.paint();
 //			
 //			painted = true;
 //
 //		}
-	}
-	
+
 	public File getMapFile() {
 		return mapFile;
 	}

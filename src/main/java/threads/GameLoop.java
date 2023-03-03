@@ -54,6 +54,7 @@ public class GameLoop extends AnimationTimer {
 	private AssetSetter aSetter;
 
 	public GameLoop(Canvas canvas) {
+		
 		if (canvas == null)
 			throw new NullPointerException("El canvas es nulo");
 		this.canvas = canvas;
@@ -68,7 +69,7 @@ public class GameLoop extends AnimationTimer {
 		checker = new CollisionChecker(this);
 		ui = new UserInterface(this);
 		ui.setContext(context);
-		aSetter = new AssetSetter(this);
+		aSetter = new AssetSetter(this, player);
 		aSetter.setNpc();
 		for (Npc npc : npcs) {
 			npc.setContext(context);
@@ -97,12 +98,7 @@ public class GameLoop extends AnimationTimer {
 	public void paint() {
 
 		tileHandler.paint();
-//		Platform.runLater(() -> {
-//			tileHandler.paint();
-			ui.paint();
-//			context.setFill(Color.BLACK);
-//			context.clearRect(GameVariables.SCREEN_WIDTH - 75, 15, 65, 20);
-//			context.fillText("FPS: " + fps, GameVariables.SCREEN_WIDTH - 75, 30);
+		ui.paint();
 	}
 
 	@Override
